@@ -6,24 +6,29 @@ import { Button } from "./ui/button";
 import DisplayTechIcons from "./DisplayTechIcons";
 
 import { cn, getRandomInterviewCover } from "@/lib/utils";
-import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
+import RetakeInterviewButton from "@/app/components/RetakeInterviewButton";
 
-const InterviewCard = async ({
+interface InterviewCardProps {
+  interviewId: string;
+  userId: string;
+  role: string;
+  type: string;
+  techstack: string[];
+  createdAt: string;
+  feedback?: any;
+}
+
+const InterviewCard = ({
   interviewId,
   userId,
   role,
   type,
   techstack,
   createdAt,
-}: InterviewCardProps) => {
-  const feedback =
-    userId && interviewId
-      ? await getFeedbackByInterviewId({
-          interviewId,
-          userId,
-        })
-      : null;
-
+  feedback,
+  userName,
+  userPhotoUrl,
+}: InterviewCardProps & { userName?: string; userPhotoUrl?: string }) => {
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
 
   const badgeColor =
@@ -34,12 +39,39 @@ const InterviewCard = async ({
     }[normalizedType] || "bg-light-600";
 
   const formattedDate = dayjs(
-    feedback?.createdAt || createdAt || Date.now()
+    (feedback && feedback.createdAt) || createdAt || Date.now()
   ).format("MMM D, YYYY");
 
   return (
-    <div className="card-border w-[360px] max-sm:w-full min-h-96">
-      <div className="card-interview">
+    <div className="card-border w-full max-w-[360px] min-w-[260px] flex-1 max-sm:w-full min-h-96 mx-auto">
+      <div className="card-interview flex flex-col h-full justify-between">
+        <div className="flex flex-row gap-4 items-center mb-2">
+          {/* Interviewer (AI) */}
+          <div className="flex flex-col items-center">
+            <Image
+              src="/ai-avatar.png"
+              alt="AI Interviewer"
+              width={40}
+              height={40}
+              className="rounded-full object-cover size-[40px]"
+            />
+            <span className="text-xs mt-1">AI Interviewer</span>
+          </div>
+          {/* Candidate */}
+          {userPhotoUrl && (
+            <div className="flex flex-col items-center ml-4">
+              <Image
+                src={userPhotoUrl}
+                alt={userName || "Candidate"}
+                width={40}
+                height={40}
+                className="rounded-full object-cover size-[40px]"
+              />
+              <span className="text-xs mt-1">{userName}</span>
+            </div>
+          )}
+        </div>
+
         <div>
           {/* Type Badge */}
           <div
@@ -88,20 +120,23 @@ const InterviewCard = async ({
           </p>
         </div>
 
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between items-center mt-4">
           <DisplayTechIcons techStack={techstack} />
-
-          <Button className="btn-primary">
-            <Link
-              href={
-                feedback
-                  ? `/interview/${interviewId}/feedback`
-                  : `/interview/${interviewId}`
-              }
-            >
-              {feedback ? "Check Feedback" : "View Interview"}
-            </Link>
-          </Button>
+          <div className="flex flex-col gap-2 items-end">
+            <Button className="btn-primary">
+              <Link
+                href={
+                  feedback
+                    ? `/interview/${interviewId}/feedback`
+                    : `/interview/${interviewId}`
+                }
+              >
+                {feedback ? "Check Feedback" : "View Interview"}
+              </Link>
+            </Button>
+            {/* Retake Button */}
+            <RetakeInterviewButton interviewId={interviewId} userId={userId} />
+          </div>
         </div>
       </div>
     </div>

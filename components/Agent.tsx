@@ -107,7 +107,7 @@ const Agent = ({
 
     if (callStatus === CallStatus.FINISHED) {
       if (type === "generate") {
-        router.push("/");
+        router.push("/interview"); // Redirect to all interviews page
       } else {
         handleGenerateFeedback(messages);
       }

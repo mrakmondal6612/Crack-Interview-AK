@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "add-demo-interviews",
+      "type": "shell",
+      "command": "npx tsx ./lib/actions/addDemoInterviews.ts"
+    }
+  ]
+}

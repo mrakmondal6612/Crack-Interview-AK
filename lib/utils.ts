@@ -23,7 +23,11 @@ const checkIconExists = async (url: string) => {
 };
 
 export const getTechLogos = async (techArray: string[]) => {
-  const logoURLs = techArray.map((tech) => {
+  // Filter out undefined, null, or empty tech names
+  const filteredTechArray = techArray.filter(
+    (tech) => typeof tech === "string" && tech.trim() !== "" && normalizeTechName(tech)
+  );
+  const logoURLs = filteredTechArray.map((tech) => {
     const normalized = normalizeTechName(tech);
     return {
       tech,

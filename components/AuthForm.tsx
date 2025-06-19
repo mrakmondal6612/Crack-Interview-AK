@@ -8,6 +8,7 @@ import { auth } from "@/firebase/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import {
   createUserWithEmailAndPassword,
@@ -17,7 +18,7 @@ import {
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import { signIn, signUp } from "@/lib/actions/auth.action";
+import { signUp } from "@/lib/actions/auth.action";
 import FormField from "./FormField";
 
 const authFormSchema = (type: FormType) => {
@@ -68,30 +69,55 @@ const AuthForm = ({ type }: { type: FormType }) => {
         router.push("/sign-in");
       } else {
         const { email, password } = data;
-
         const userCredential = await signInWithEmailAndPassword(
           auth,
           email,
           password
         );
-
         const idToken = await userCredential.user.getIdToken();
         if (!idToken) {
           toast.error("Sign in Failed. Please try again.");
           return;
         }
-
-        await signIn({
-          email,
-          idToken,
+        // Call the new API route to set the session cookie
+        const res = await fetch("/api/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ idToken }),
         });
-
+        const result = await res.json();
+        if (!result.success) {
+          toast.error("Failed to set session. Please try again.");
+          return;
+        }
         toast.success("Signed in successfully.");
-        router.push("/");
+        // Force a full page reload to sync session
+        window.location.href = "/";
       }
     } catch (error) {
       console.log(error);
       toast.error(`There was an error: ${error}`);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      if (!user) return;
+      // Save user to Firestore with photo
+      await signUp({
+        uid: user.uid,
+        name: user.displayName || "",
+        email: user.email || "",
+        profileURL: user.photoURL || "",
+        password: "google-oauth", // placeholder, not used
+      });
+      toast.success("Signed in with Google!");
+      window.location.href = "/";
+    } catch (error) {
+      toast.error("Google sign-in failed");
     }
   };
 
@@ -143,6 +169,21 @@ const AuthForm = ({ type }: { type: FormType }) => {
             </Button>
           </form>
         </Form>
+
+        <Button
+          className="btn-google w-full mb-2"
+          type="button"
+          onClick={handleGoogleSignIn}
+        >
+          <Image
+            src="/google.svg"
+            alt="Google"
+            width={20}
+            height={20}
+            className="inline mr-2"
+          />
+          Sign in with Google
+        </Button>
 
         <p className="text-center">
           {isSignIn ? "No account yet?" : "Have an account already?"}
