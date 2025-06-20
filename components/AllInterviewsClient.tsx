@@ -59,8 +59,8 @@ export default function AllInterviewsClient({
               type={interview.type}
               techstack={interview.techstack}
               createdAt={interview.createdAt}
-              userName={userName}
-              userPhotoUrl={userPhotoUrl}
+              candidateName={userId === interview.userId ? userName : undefined}
+              candidatePhotoUrl={userId === interview.userId ? userPhotoUrl : undefined}
             />
           ))
         ) : (
