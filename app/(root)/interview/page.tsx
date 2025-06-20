@@ -1,19 +1,18 @@
 import { getCurrentUser } from "@/lib/actions/auth.action";
-import { getInterviewsByUserId, getLatestInterviews } from "@/lib/actions/general.action";
 import AllInterviewsClientWrapper from "@/components/AllInterviewsClientWrapper";
 
 const Page = async () => {
-  // Fetch user and interviews in parallel for speed
-  const [user, userInterviews, allInterview] = await Promise.all([
-    getCurrentUser(),
-    getCurrentUser().then(u => u?.id ? getInterviewsByUserId(u.id) : []),
-    getCurrentUser().then(u => u?.id ? getLatestInterviews({ userId: u.id, limit: 20 }) : []),
-  ]);
-  const userId = user?.id;
-  const allCards = [
-    ...(userInterviews || []),
-    ...(allInterview?.filter(i => !userInterviews?.some(u => u.id === i.id)) || [])
-  ];
+  // Fetch all interviews from API
+  const user = await getCurrentUser();
+  const userId = user?.id || "";
+  let allCards: any[] = [];
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/interviews`, { cache: "no-store" });
+    const data = await res.json();
+    allCards = data.interviews || [];
+  } catch (e) {
+    allCards = [];
+  }
 
   return (
     <div className="flex flex-col gap-8 w-full">
@@ -24,12 +23,12 @@ const Page = async () => {
           Total Interviews: {allCards.length}
         </div>
         <div className="bg-dark-800 text-primary-100 rounded-lg px-4 py-2">
-          My Interviews: {(userInterviews?.length || 0)}
+          My Interviews: {allCards.filter(i => i.userId === userId).length}
         </div>
       </div>
       <AllInterviewsClientWrapper
         interviews={allCards}
-        userId={userId || ""}
+        userId={userId}
         userName={user?.name || ""}
         userPhotoUrl={user?.profileURL || ""}
       />

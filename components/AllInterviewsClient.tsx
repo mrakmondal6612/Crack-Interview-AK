@@ -54,13 +54,13 @@ export default function AllInterviewsClient({
             <InterviewCard
               key={interview.id}
               interviewId={interview.id}
-              userId={userId}
+              userId={interview.userId}
               role={interview.role}
               type={interview.type}
               techstack={interview.techstack}
               createdAt={interview.createdAt}
-              candidateName={userId === interview.userId ? userName : undefined}
-              candidatePhotoUrl={userId === interview.userId ? userPhotoUrl : undefined}
+              candidateName={interview.candidateName}
+              candidatePhotoUrl={interview.candidatePhotoUrl}
             />
           ))
         ) : (
