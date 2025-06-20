@@ -9,7 +9,12 @@ export default function Footer() {
         {/* Exclusive/Subscribe Section */}
         <div className="md:col-span-2 flex flex-col gap-4">
           <h3 className="font-bold text-lg mb-2">Exclusive</h3>
-          <p className="text-primary-200 text-sm">Subscribe<br />Get 10% off your first order</p>
+            <p className="text-primary-200 text-sm mb-4">
+                Subscribe to our newsletter for exclusive content, updates, and offers.
+            </p>
+          <p className="text-primary-200 text-sm mb-4">
+            Join our community of aspiring professionals and stay ahead in your career with AI Mock Interviews.
+          </p>
           <form className="flex flex-col sm:flex-row gap-2 mt-2">
             <input
               type="email"
@@ -24,7 +29,7 @@ export default function Footer() {
         {/* Support Section */}
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg mb-2">Support</h3>
-          <p className="text-primary-200 text-sm">1, Khan Road Mankundu<br />Hooghly - 720012</p>
+          <p className="text-primary-200 text-sm">Kolkata, India<br /></p>
           <a href="mailto:xyzabcgmail.com" className="text-primary-100 hover:underline text-sm">xyzabcgmail.com</a>
           <a href="tel:+9101584369999" className="text-primary-100 hover:underline text-sm">+91 015-8436-9999</a>
         </div>
@@ -33,9 +38,9 @@ export default function Footer() {
           <h3 className="font-bold text-lg mb-2">Account</h3>
           <a href="/profile" className="text-primary-100 hover:underline text-sm">My Account</a>
           <a href="/sign-in" className="text-primary-100 hover:underline text-sm">Login / Register</a>
-          <a href="/cart" className="text-primary-100 hover:underline text-sm">Cart</a>
-          <a href="/wishlist" className="text-primary-100 hover:underline text-sm">Wishlist</a>
-          <a href="/shop" className="text-primary-100 hover:underline text-sm">Shop</a>
+            <a href="/interview" className="text-primary-100 hover:underline text-sm">My Interviews</a>
+            <a href="/interview/create" className="text-primary-100 hover:underline text-sm">Create Interview</a>
+            <a href="/interview/history" className="text-primary-100 hover:underline text-sm">Interview History</a>
         </div>
         {/* Quick Link Section */}
         <div className="flex flex-col gap-2">
@@ -44,6 +49,10 @@ export default function Footer() {
           <a href="/terms" className="text-primary-100 hover:underline text-sm">Terms Of Use</a>
           <a href="/faq" className="text-primary-100 hover:underline text-sm">FAQ</a>
           <a href="/contact" className="text-primary-100 hover:underline text-sm">Contact</a>
+            <a href="/about" className="text-primary-100 hover:underline text-sm">About Us</a>
+            <a href="/blog" className="text-primary-100 hover:underline text-sm">Blog</a>
+            <a href="/careers" className="text-primary-100 hover:underline text-sm">Careers</a>
+
         </div>
         {/* Social Section */}
         <div className="flex flex-col gap-2 items-start">
@@ -58,6 +67,7 @@ export default function Footer() {
             <a href="https://instagram.com/ajay.ai" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <img src="/tech/instagram.svg" alt="Instagram" className="w-7 h-7 hover:scale-110 transition" />
             </a>
+            
           </div>
         </div>
       </div>
