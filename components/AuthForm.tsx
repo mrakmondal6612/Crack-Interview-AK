@@ -119,8 +119,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
       console.log("Firebase currentUser after Google sign-in:", auth.currentUser);
       setTimeout(() => {
         // Debug: log before redirect
-        console.log("Redirecting to home page after Google sign-in");
-        router.push("/");
+        console.log("Redirecting to home page after Google sign-in (full reload)");
+        window.location.href = "/";
       }, 1200);
     } catch (error) {
       toast.error("Google sign-in failed");
