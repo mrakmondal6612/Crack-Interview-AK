@@ -56,6 +56,7 @@ const InterviewCard = ({
               width={40}
               height={40}
               className="rounded-full object-cover size-[40px]"
+              style={{ width: "auto", height: "auto" }}
             />
             <span className="text-xs mt-1">AI Interviewer</span>
           </div>
@@ -68,6 +69,7 @@ const InterviewCard = ({
                 width={40}
                 height={40}
                 className="rounded-full object-cover size-[40px]"
+                style={{ width: "auto", height: "auto" }}
               />
               <span className="text-xs mt-1">{candidateName}</span>
             </div>
@@ -92,6 +94,7 @@ const InterviewCard = ({
             width={90}
             height={90}
             className="rounded-full object-fit size-[90px]"
+            style={{ width: "auto", height: "auto" }}
           />
 
           {/* Interview Role */}
@@ -105,12 +108,19 @@ const InterviewCard = ({
                 width={22}
                 height={22}
                 alt="calendar"
+                style={{ width: "auto", height: "auto" }}
               />
               <p>{formattedDate}</p>
             </div>
 
             <div className="flex flex-row gap-2 items-center">
-              <Image src="/star.svg" width={22} height={22} alt="star" />
+              <Image
+                src="/star.svg"
+                width={22}
+                height={22}
+                alt="star"
+                style={{ width: "auto", height: "auto" }}
+              />
               <p>{feedback?.totalScore || "---"}/100</p>
             </div>
           </div>
