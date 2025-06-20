@@ -35,7 +35,7 @@ const cardVariants = {
 
 export default function ReviewsPage() {
 	return (
-		<div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl justify-center mx-auto py-16">
+		<div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl justify-center mx-auto py-16 bg-black">
 			{reviews.map((review, idx) => (
 				<motion.div
 					key={idx}
