@@ -43,7 +43,7 @@ export default function ReviewsSection() {
 				{reviews.map((review, idx) => (
 					<motion.div
 						key={idx}
-						className="rounded-2xl border border-primary-200 bg-white/90 shadow-xl p-8 w-full md:w-1/3 hover:scale-105 hover:shadow-2xl transition-all duration-300 relative"
+						className="rounded-2xl border border-dark-700 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-700 shadow-xl p-8 w-full md:w-1/3 hover:scale-105 hover:shadow-2xl transition-all duration-300 relative"
 						style={{ minHeight: 220 }}
 						initial="offscreen"
 						whileInView="onscreen"
