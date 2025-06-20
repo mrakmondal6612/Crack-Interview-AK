@@ -3,12 +3,13 @@ import { getInterviewById, getFeedbackByInterviewId } from "@/lib/actions/genera
 import Agent from "@/components/Agent";
 import { redirect } from "next/navigation";
 
-const InterviewCall = async ({ params }: { params: { id: string } }) => {
+const InterviewCall = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const user = await getCurrentUser();
-  const interview = await getInterviewById(params.id);
+  const interview = await getInterviewById(id);
   if (!interview) redirect("/");
   const feedback = await getFeedbackByInterviewId({
-    interviewId: params.id,
+    interviewId: id,
     userId: user?.id!,
   });
 
@@ -16,7 +17,7 @@ const InterviewCall = async ({ params }: { params: { id: string } }) => {
     <Agent
       userName={user?.name!}
       userId={user?.id}
-      interviewId={params.id}
+      interviewId={id}
       type="interview"
       questions={interview.questions}
       feedbackId={feedback?.id}
