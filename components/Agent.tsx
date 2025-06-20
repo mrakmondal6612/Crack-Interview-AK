@@ -21,6 +21,16 @@ interface SavedMessage {
   content: string;
 }
 
+interface AgentProps {
+  userName: string;
+  userId: string;
+  interviewId: string;
+  feedbackId?: string;
+  type: string;
+  questions: string[];
+  userPhotoUrl?: string;
+}
+
 const Agent = ({
   userName,
   userId,
@@ -28,6 +38,7 @@ const Agent = ({
   feedbackId,
   type,
   questions,
+  userPhotoUrl,
 }: AgentProps) => {
   const router = useRouter();
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
@@ -166,13 +177,23 @@ const Agent = ({
         {/* User Profile Card */}
         <div className="card-border">
           <div className="card-content">
-            <Image
-              src="/user-avatar.png"
-              alt="profile-image"
-              width={539}
-              height={539}
-              className="rounded-full object-cover size-[120px]"
-            />
+            {userPhotoUrl ? (
+              <Image
+                src={userPhotoUrl}
+                alt="profile-image"
+                width={120}
+                height={120}
+                className="rounded-full object-cover size-[120px]"
+              />
+            ) : (
+              <Image
+                src="/user-avatar.png"
+                alt="profile-image"
+                width={120}
+                height={120}
+                className="rounded-full object-cover size-[120px]"
+              />
+            )}
             <h3>{userName}</h3>
           </div>
         </div>

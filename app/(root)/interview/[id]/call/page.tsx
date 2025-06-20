@@ -13,14 +13,20 @@ const InterviewCall = async ({ params }: { params: Promise<{ id: string }> }) =>
     userId: user?.id!,
   });
 
+  // Only show user photo if the logged-in user is the interview creator
+  const showUserPhoto = user?.id === interview.userId;
+  const userName = user?.name || "Candidate";
+  const userPhotoUrl = showUserPhoto ? user?.profileURL : undefined;
+
   return (
     <Agent
-      userName={user?.name!}
+      userName={userName}
       userId={user?.id}
       interviewId={id}
       type="interview"
       questions={interview.questions}
       feedbackId={feedback?.id}
+      userPhotoUrl={userPhotoUrl}
     />
   );
 };
