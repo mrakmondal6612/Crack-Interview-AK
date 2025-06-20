@@ -114,12 +114,20 @@ const AuthForm = ({ type }: { type: FormType }) => {
         profileURL: user.photoURL || "",
         password: "google-oauth", // placeholder, not used
       });
+      // Set session cookie via API
+      const idToken = await user.getIdToken();
+      const res = await fetch("/api/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+      const resultSession = await res.json();
+      if (!resultSession.success) {
+        toast.error("Failed to set session. Please try again.");
+        return;
+      }
       toast.success("Signed in with Google!");
-      // Debug: log current user
-      console.log("Firebase currentUser after Google sign-in:", auth.currentUser);
       setTimeout(() => {
-        // Debug: log before redirect
-        console.log("Redirecting to home page after Google sign-in (full reload)");
         window.location.href = "/";
       }, 1200);
     } catch (error) {
