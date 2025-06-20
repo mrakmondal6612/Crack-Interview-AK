@@ -115,7 +115,9 @@ const AuthForm = ({ type }: { type: FormType }) => {
         password: "google-oauth", // placeholder, not used
       });
       toast.success("Signed in with Google!");
-      window.location.href = "/";
+      setTimeout(() => {
+        router.push("/");
+      }, 300);
     } catch (error) {
       toast.error("Google sign-in failed");
     }
