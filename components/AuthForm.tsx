@@ -115,11 +115,16 @@ const AuthForm = ({ type }: { type: FormType }) => {
         password: "google-oauth", // placeholder, not used
       });
       toast.success("Signed in with Google!");
+      // Debug: log current user
+      console.log("Firebase currentUser after Google sign-in:", auth.currentUser);
       setTimeout(() => {
+        // Debug: log before redirect
+        console.log("Redirecting to home page after Google sign-in");
         router.push("/");
-      }, 300);
+      }, 1200);
     } catch (error) {
       toast.error("Google sign-in failed");
+      console.error("Google sign-in error:", error);
     }
   };
 
