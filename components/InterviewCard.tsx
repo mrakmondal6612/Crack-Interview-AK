@@ -16,6 +16,8 @@ interface InterviewCardProps {
   techstack: string[];
   createdAt: string;
   feedback?: any;
+  candidateName?: string;
+  candidatePhotoUrl?: string;
 }
 
 const InterviewCard = ({
@@ -26,9 +28,9 @@ const InterviewCard = ({
   techstack,
   createdAt,
   feedback,
-  userName,
-  userPhotoUrl,
-}: InterviewCardProps & { userName?: string; userPhotoUrl?: string }) => {
+  candidateName,
+  candidatePhotoUrl,
+}: InterviewCardProps) => {
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
 
   const badgeColor =
@@ -58,16 +60,16 @@ const InterviewCard = ({
             <span className="text-xs mt-1">AI Interviewer</span>
           </div>
           {/* Candidate */}
-          {userPhotoUrl && (
+          {candidatePhotoUrl && (
             <div className="flex flex-col items-center ml-4">
               <Image
-                src={userPhotoUrl}
-                alt={userName || "Candidate"}
+                src={candidatePhotoUrl}
+                alt={candidateName || "Candidate"}
                 width={40}
                 height={40}
                 className="rounded-full object-cover size-[40px]"
               />
-              <span className="text-xs mt-1">{userName}</span>
+              <span className="text-xs mt-1">{candidateName}</span>
             </div>
           )}
         </div>

@@ -76,8 +76,16 @@ export default function Home() {
                 type={interview.type}
                 techstack={interview.techstack}
                 createdAt={interview.createdAt}
-                userName={user.displayName || user.email || "User"}
-                userPhotoUrl={user.photoURL || undefined}
+                candidateName={
+                  user.uid === interview.userId
+                    ? user.displayName || user.email || "User"
+                    : undefined
+                }
+                candidatePhotoUrl={
+                  user.uid === interview.userId
+                    ? (user.photoURL || undefined)
+                    : undefined
+                }
               />
             ))}
           </div>
