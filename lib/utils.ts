@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const techIconBaseURL = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
+const techIconBaseURL = "/tech";
 
 const normalizeTechName = (tech: string) => {
   const key = tech.toLowerCase().replace(/\.js$/, "").replace(/\s+/g, "");
@@ -31,7 +31,7 @@ export const getTechLogos = async (techArray: string[]) => {
     const normalized = normalizeTechName(tech);
     return {
       tech,
-      url: `${techIconBaseURL}/${normalized}/${normalized}-original.svg`,
+      url: `${techIconBaseURL}/${normalized}.svg`,
     };
   });
 
