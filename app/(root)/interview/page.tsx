@@ -7,7 +7,10 @@ const Page = async () => {
   const userId = user?.id || "";
   let allCards: any[] = [];
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/interviews`, { cache: "no-store" });
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/api/interviews`, { cache: "no-store" });
     const data = await res.json();
     allCards = data.interviews || [];
   } catch (e) {
