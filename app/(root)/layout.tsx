@@ -6,10 +6,10 @@ import { redirect } from "next/navigation";
 import { isAuthenticated, getCurrentUser } from "@/lib/actions/auth.action";
 import Header from "@/components/Header";
 
-const Layout = async ({ children }: { children: ReactNode }) => {
-  const isUserAuthenticated = await isAuthenticated();
+const Layout = ({ children }: { children: ReactNode }) => {
+  const isUserAuthenticated = isAuthenticated();
   if (!isUserAuthenticated) redirect("/sign-in");
-  const user = await getCurrentUser();
+  const user = getCurrentUser();
 
   return (
     <div className="root-layout min-h-screen flex flex-col bg-dark-950">
