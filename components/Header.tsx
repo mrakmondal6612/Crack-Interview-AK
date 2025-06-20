@@ -20,7 +20,7 @@ export default function Header({ user }: { user?: { name?: string; profileURL?: 
     <header className="w-full bg-dark-900 shadow-md py-3 px-4 sm:px-6 flex items-center justify-between border-b border-dark-700 sticky top-0 z-50 backdrop-blur-md bg-opacity-80">
       <Link href="/" className="flex items-center gap-2 min-w-0">
         <Image src="/logo.svg" alt="logo" width={32} height={32} style={{ width: "auto", height: "auto" }} />
-        <span className="font-bold text-lg text-primary-100 truncate">MockBot</span>
+        <span className="font-bold text-lg text-primary-100 truncate">InterviewOrbit</span>
       </Link>
       <button className="sm:hidden ml-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
         <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-primary-100">

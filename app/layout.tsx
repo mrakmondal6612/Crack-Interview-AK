@@ -10,9 +10,9 @@ const monaSans = Mona_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MockBot | AI Mock Interviews",
+  title: "InterviewOrbit | AI Mock Interviews",
   description:
-    "MockBot: Your AI-powered platform for realistic, interactive mock interviews. Practice, improve, and ace your next interview!",
+    "InterviewOrbit: Your AI-powered platform for realistic, interactive mock interviews. Practice, improve, and ace your next interview!",
   icons: {
     icon: "/logo.svg",
     shortcut: "/logo.svg",
