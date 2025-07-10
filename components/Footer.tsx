@@ -58,13 +58,13 @@ export default function Footer() {
         <div className="flex flex-col gap-2 items-start">
           <h3 className="font-bold text-lg mb-2">Follow Us</h3>
           <div className="flex gap-4">
-            <a href="https://www.linkedin.com/in/ajay-ai" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/mr-ak" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <img src="/tech/linkedin.svg" alt="LinkedIn" className="w-7 h-7 hover:scale-110 transition" />
             </a>
-            <a href="https://github.com/ajay-ai/ai_mock_interviews" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <a href="https://github.com/mrakmondal6612" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <img src="/tech/github.svg" alt="GitHub" className="w-7 h-7 hover:scale-110 transition" />
             </a>
-            <a href="https://instagram.com/ajay.ai" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://instagram.com/b.tech_ak" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <img src="/tech/instagram.svg" alt="Instagram" className="w-7 h-7 hover:scale-110 transition" />
             </a>
             
