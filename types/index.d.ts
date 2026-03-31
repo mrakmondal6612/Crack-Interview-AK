@@ -98,3 +98,20 @@ interface InterviewFormProps {
 interface TechIconProps {
   techStack: string[];
 }
+
+interface Testimonial {
+  id: string;
+  userId: string;
+  userName: string;
+  rating: number;
+  text: string;
+  verified: boolean;
+  createdAt: string;
+}
+
+interface CreateTestimonialParams {
+  userId: string;
+  userName: string;
+  rating: number;
+  text: string;
+}
