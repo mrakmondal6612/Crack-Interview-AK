@@ -1,80 +1,113 @@
-import { db } from "@/firebase/admin";
-
 async function addDemoTestimonials() {
-  const now = new Date().toISOString();
-
   const demoTestimonials = [
     {
-      userId: "user_demo_1",
-      userName: "Sarah Johnson",
+      name: "Sarah Johnson",
       rating: 5,
-      text: "Prepwise completely transformed how I approach interviews. The AI feedback was incredibly detailed and helped me identify my weaknesses. I got offers from 3 top tech companies!",
-      verified: true,
-      createdAt: now,
+      feedback:
+        "Prepwise completely transformed how I approach interviews. The AI feedback was incredibly detailed and helped me identify my weaknesses. I got offers from 3 top tech companies!",
     },
     {
-      userId: "user_demo_2",
-      userName: "Amit Patel",
+      name: "Amit Patel",
       rating: 5,
-      text: "The mock interviews felt so real. Practicing with Prepwise's AI interviewer made me confident and calm during actual interviews. Highly recommend to anyone preparing for tech roles.",
-      verified: true,
-      createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "The mock interviews felt so real. Practicing with Prepwise's AI interviewer made me confident and calm during actual interviews. Highly recommend to anyone preparing for tech roles.",
     },
     {
-      userId: "user_demo_3",
-      userName: "Emma Chen",
+      name: "Emma Chen",
       rating: 4,
-      text: "Great platform for interview prep. The biggest advantage is that you can practice anytime, anywhere. Wish there were more company-specific interview scenarios though.",
-      verified: true,
-      createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "Great platform for interview prep. The biggest advantage is that you can practice anytime, anywhere. Wish there were more company-specific interview scenarios though.",
     },
     {
-      userId: "user_demo_4",
-      userName: "Michael Rodriguez",
+      name: "Michael Rodriguez",
       rating: 5,
-      text: "From struggling with behavioral questions to nailing them - Prepwise made all the difference. The detailed feedback after each practice session was gold. Worth every penny!",
-      verified: true,
-      createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "From struggling with behavioral questions to nailing them - Prepwise made all the difference. The detailed feedback after each practice session was gold. Worth every penny!",
     },
     {
-      userId: "user_demo_5",
-      userName: "Lisa Wang",
+      name: "Lisa Wang",
       rating: 4,
-      text: "The interview experience is surprisingly realistic. I appreciate the immediate feedback on communication skills and technical explanations. Helped me land my dream role at Google!",
-      verified: true,
-      createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "The interview experience is surprisingly realistic. I appreciate the immediate feedback on communication skills and technical explanations. Helped me land my dream role at Google!",
     },
     {
-      userId: "user_demo_6",
-      userName: "James Thompson",
+      name: "James Thompson",
       rating: 5,
-      text: "Finally, a platform that truly simulates real interviews. The AI doesn't just ask questions - it challenges your thinking and helps you improve on the spot. Changed my career trajectory!",
-      verified: true,
-      createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "Finally, a platform that truly simulates real interviews. The AI doesn't just ask questions - it challenges your thinking and helps you improve on the spot. Changed my career trajectory!",
     },
     {
-      userId: "user_demo_7",
-      userName: "Priya Verma",
+      name: "Priya Verma",
       rating: 5,
-      text: "As a career changer, I was nervous about technical interviews. Prepwise gave me the practice and confidence I needed. Passed all interviews at my target companies!",
-      verified: true,
-      createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "As a career changer, I was nervous about technical interviews. Prepwise gave me the practice and confidence I needed. Passed all interviews at my target companies!",
     },
     {
-      userId: "user_demo_8",
-      userName: "David Kim",
+      name: "David Kim",
       rating: 4,
-      text: "The platform is user-friendly and the interview questions are well-curated. The only improvement would be more industry-specific questions. Overall, excellent resource!",
-      verified: true,
-      createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+      feedback:
+        "The platform is user-friendly and the interview questions are well-curated. The only improvement would be more industry-specific questions. Overall, excellent resource!",
+    },
+    {
+      name: "Ravi Kumar",
+      rating: 5,
+      feedback:
+        "Outstanding platform! I improved my interview skills significantly within 2 weeks. The real-time feedback and personalized tips were exactly what I needed to crack my interviews.",
+    },
+    {
+      name: "Jessica Anderson",
+      rating: 5,
+      feedback:
+        "Prepwise's AI interviewer is incredibly smart and adaptive. You feel like you're in a real interview room. The tips after each session helped me overcome my anxiety about tech interviews.",
+    },
+    {
+      name: "Naveen Singh",
+      rating: 4,
+      feedback:
+        "Excellent mock interview platform. The questions are relevant and challenging. Would love to see more live feedback during interviews, but overall very impressed!",
+    },
+    {
+      name: "Sophie Martin",
+      rating: 5,
+      feedback:
+        "I was barely passing phone screens before Prepwise. Now I'm crushing them! The platform helped me understand what interviewers actually look for. Highly recommended!",
     },
   ];
 
+  console.log(`Adding ${demoTestimonials.length} demo testimonials...`);
+
   for (const testimonial of demoTestimonials) {
-    await db.collection("testimonials").add(testimonial);
+    try {
+      const response = await fetch("http://localhost:3001/api/testimonials", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testimonial),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error(
+          `❌ Error adding testimonial from ${testimonial.name}:`,
+          errorData
+        );
+        continue;
+      }
+
+      const result = await response.json();
+      console.log(`✅ Added testimonial from ${testimonial.name}`);
+    } catch (error) {
+      console.error(
+        `❌ Error adding testimonial from ${testimonial.name}:`,
+        error
+      );
+    }
   }
 
-  console.log(`✅ Added ${demoTestimonials.length} demo testimonials`);
+  console.log(
+    `\n✅ Successfully added ${demoTestimonials.length} demo testimonials!`
+  );
   return { success: true, count: demoTestimonials.length };
 }
 

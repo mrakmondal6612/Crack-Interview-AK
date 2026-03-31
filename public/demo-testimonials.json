@@ -1,0 +1,110 @@
+[
+  {
+    "id": "demo_1",
+    "userId": "user_demo_1",
+    "userName": "Sarah Johnson",
+    "rating": 5,
+    "text": "Prepwise completely transformed how I approach interviews. The AI feedback was incredibly detailed and helped me identify my weaknesses. I got offers from 3 top tech companies!",
+    "verified": true,
+    "createdAt": "2026-03-31T10:00:00.000Z"
+  },
+  {
+    "id": "demo_2",
+    "userId": "user_demo_2",
+    "userName": "Amit Patel",
+    "rating": 5,
+    "text": "The mock interviews felt so real. Practicing with Prepwise's AI interviewer made me confident and calm during actual interviews. Highly recommend to anyone preparing for tech roles.",
+    "verified": true,
+    "createdAt": "2026-03-29T10:00:00.000Z"
+  },
+  {
+    "id": "demo_3",
+    "userId": "user_demo_3",
+    "userName": "Emma Chen",
+    "rating": 4,
+    "text": "Great platform for interview prep. The biggest advantage is that you can practice anytime, anywhere. Wish there were more company-specific interview scenarios though.",
+    "verified": true,
+    "createdAt": "2026-03-27T10:00:00.000Z"
+  },
+  {
+    "id": "demo_4",
+    "userId": "user_demo_4",
+    "userName": "Michael Rodriguez",
+    "rating": 5,
+    "text": "From struggling with behavioral questions to nailing them - Prepwise made all the difference. The detailed feedback after each practice session was gold. Worth every penny!",
+    "verified": true,
+    "createdAt": "2026-03-25T10:00:00.000Z"
+  },
+  {
+    "id": "demo_5",
+    "userId": "user_demo_5",
+    "userName": "Lisa Wang",
+    "rating": 4,
+    "text": "The interview experience is surprisingly realistic. I appreciate the immediate feedback on communication skills and technical explanations. Helped me land my dream role at Google!",
+    "verified": true,
+    "createdAt": "2026-03-23T10:00:00.000Z"
+  },
+  {
+    "id": "demo_6",
+    "userId": "user_demo_6",
+    "userName": "James Thompson",
+    "rating": 5,
+    "text": "Finally, a platform that truly simulates real interviews. The AI doesn't just ask questions - it challenges your thinking and helps you improve on the spot. Changed my career trajectory!",
+    "verified": true,
+    "createdAt": "2026-03-21T10:00:00.000Z"
+  },
+  {
+    "id": "demo_7",
+    "userId": "user_demo_7",
+    "userName": "Priya Verma",
+    "rating": 5,
+    "text": "As a career changer, I was nervous about technical interviews. Prepwise gave me the practice and confidence I needed. Passed all interviews at my target companies!",
+    "verified": true,
+    "createdAt": "2026-03-19T10:00:00.000Z"
+  },
+  {
+    "id": "demo_8",
+    "userId": "user_demo_8",
+    "userName": "David Kim",
+    "rating": 4,
+    "text": "The platform is user-friendly and the interview questions are well-curated. The only improvement would be more industry-specific questions. Overall, excellent resource!",
+    "verified": true,
+    "createdAt": "2026-03-17T10:00:00.000Z"
+  },
+  {
+    "id": "demo_9",
+    "userId": "user_demo_9",
+    "userName": "Ravi Kumar",
+    "rating": 5,
+    "text": "Outstanding platform! I improved my interview skills significantly within 2 weeks. The real-time feedback and personalized tips were exactly what I needed to crack my interviews.",
+    "verified": true,
+    "createdAt": "2026-03-15T10:00:00.000Z"
+  },
+  {
+    "id": "demo_10",
+    "userId": "user_demo_10",
+    "userName": "Jessica Anderson",
+    "rating": 5,
+    "text": "Prepwise's AI interviewer is incredibly smart and adaptive. You feel like you're in a real interview room. The tips after each session helped me overcome my anxiety about tech interviews.",
+    "verified": true,
+    "createdAt": "2026-03-13T10:00:00.000Z"
+  },
+  {
+    "id": "demo_11",
+    "userId": "user_demo_11",
+    "userName": "Naveen Singh",
+    "rating": 4,
+    "text": "Excellent mock interview platform. The questions are relevant and challenging. Would love to see more live feedback during interviews, but overall very impressed!",
+    "verified": true,
+    "createdAt": "2026-03-11T10:00:00.000Z"
+  },
+  {
+    "id": "demo_12",
+    "userId": "user_demo_12",
+    "userName": "Sophie Martin",
+    "rating": 5,
+    "text": "I was barely passing phone screens before Prepwise. Now I'm crushing them! The platform helped me understand what interviewers actually look for. Highly recommended!",
+    "verified": true,
+    "createdAt": "2026-03-09T10:00:00.000Z"
+  }
+]
