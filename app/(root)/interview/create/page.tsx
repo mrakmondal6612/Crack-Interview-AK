@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function CreateInterviewPage() {
   const [role, setRole] = useState("");
@@ -10,28 +11,43 @@ export default function CreateInterviewPage() {
   const [techstack, setTechstack] = useState("");
   const [amount, setAmount] = useState(5);
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
   const router = useRouter();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>, demoMode = false) {
     e.preventDefault();
-    setLoading(true);
-    const res = await fetch("/api/vapi/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type,
-        role,
-        level,
-        techstack,
-        amount,
-      }),
-    });
-    const data = await res.json();
-    setLoading(false);
-    if (res.ok && data.id) {
-      router.push(`/interview/${data.id}/call`);
-    } else {
-      alert(data.error || "Failed to create interview");
+    demoMode ? setDemoLoading(true) : setLoading(true);
+    
+    try {
+      const res = await fetch("/api/vapi/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type,
+          role,
+          level,
+          techstack,
+          amount,
+          demoMode,
+        }),
+      });
+      const data = await res.json();
+      
+      if (res.ok && data.id) {
+        toast.success(demoMode ? "Demo interview created! (No API used)" : "Interview created successfully!");
+        router.push(`/interview/${data.id}/call`);
+      } else {
+        if (res.status === 429 || data.error?.includes("quota")) {
+          toast.error("AI quota exceeded. Use Demo Mode to test without API.");
+        } else {
+          toast.error(data.error || "Failed to create interview");
+        }
+      }
+    } catch (err) {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+      setDemoLoading(false);
     }
   }
 
@@ -85,9 +101,21 @@ export default function CreateInterviewPage() {
           onChange={e => setAmount(Number(e.target.value))}
           required
         />
-        <Button type="submit" className="w-full mt-4" disabled={loading}>
+        <Button type="submit" className="w-full mt-4" disabled={loading || demoLoading}>
           {loading ? "Creating..." : "Create Interview"}
         </Button>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          disabled={loading || demoLoading}
+          onClick={(e) => handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>, true)}
+        >
+          {demoLoading ? "Creating Demo..." : "⚡ Create Demo Interview (No API)"}
+        </Button>
+        <p className="text-xs text-primary-300 text-center">
+          Demo mode uses pre-generated questions without calling the AI API
+        </p>
       </form>
     </div>
   );

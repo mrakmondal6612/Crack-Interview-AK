@@ -45,6 +45,7 @@ const Agent = ({
   const [messages, setMessages] = useState<SavedMessage[]>([]);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [lastMessage, setLastMessage] = useState<string>("");
+  const [isGeneratingFeedback, setIsGeneratingFeedback] = useState(false);
 
   useEffect(() => {
     const onCallStart = () => {
@@ -73,7 +74,11 @@ const Agent = ({
     };
 
     const onError = (error: Error) => {
-      console.log("Error:", error);
+      console.log("VAPI Error:", error);
+      // Handle call errors gracefully
+      if (error.message.includes("ejection") || error.message.includes("ended")) {
+        setCallStatus(CallStatus.FINISHED);
+      }
     };
 
     vapi.on("call-start", onCallStart);
@@ -97,33 +102,50 @@ const Agent = ({
     if (messages.length > 0) {
       setLastMessage(messages[messages.length - 1].content);
     }
+  }, [messages]);
 
-    const handleGenerateFeedback = async (messages: SavedMessage[]) => {
-      console.log("handleGenerateFeedback");
+  // Separate effect for handling call finish and feedback generation
+  useEffect(() => {
+    // Only handle when call is finished and it's an interview (not generate)
+    if (callStatus !== CallStatus.FINISHED) return;
+    
+    // For generate type, redirect to interviews list
+    if (type === "generate") {
+      router.push("/interview");
+      return;
+    }
 
-      const { success, feedbackId: id } = await createFeedback({
-        interviewId: interviewId!,
-        userId: userId!,
-        transcript: messages,
-        feedbackId,
-      });
+    // Interview finished - generate feedback
+    const handleGenerateFeedback = async () => {
+      console.log("handleGenerateFeedback", { messagesCount: messages.length, userId, interviewId });
+      setIsGeneratingFeedback(true);
 
-      if (success && id) {
+      try {
+        const { success, feedbackId: id } = await createFeedback({
+          interviewId: interviewId!,
+          userId: userId!,
+          transcript: messages,
+          feedbackId,
+        });
+
+        console.log("Feedback result:", { success, id });
+
+        if (success && id) {
+          router.push(`/interview/${interviewId}/feedback`);
+        } else {
+          console.log("Feedback generation returned false, redirecting anyway");
+          router.push(`/interview/${interviewId}/feedback`);
+        }
+      } catch (error) {
+        console.error("Error in feedback generation:", error);
         router.push(`/interview/${interviewId}/feedback`);
-      } else {
-        console.log("Error saving feedback");
-        router.push("/");
+      } finally {
+        setIsGeneratingFeedback(false);
       }
     };
 
-    if (callStatus === CallStatus.FINISHED) {
-      if (type === "generate") {
-        router.push("/interview"); // Redirect to all interviews page
-      } else {
-        handleGenerateFeedback(messages);
-      }
-    }
-  }, [messages, callStatus, feedbackId, interviewId, router, type, userId]);
+    handleGenerateFeedback();
+  }, [callStatus, type, interviewId, router, messages, userId, feedbackId]);
 
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING);
@@ -215,8 +237,17 @@ const Agent = ({
         </div>
       )}
 
+      {isGeneratingFeedback && (
+        <div className="w-full flex flex-col items-center justify-center gap-4 py-8">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-100"></div>
+          <p className="text-primary-200 text-center">
+            Generating feedback... Please wait.
+          </p>
+        </div>
+      )}
+
       <div className="w-full flex justify-center">
-        {callStatus !== "ACTIVE" ? (
+        {callStatus !== "ACTIVE" && !isGeneratingFeedback ? (
           <button className="relative btn-call" onClick={() => handleCall()}>
             <span
               className={cn(
@@ -231,11 +262,11 @@ const Agent = ({
                 : ". . ."}
             </span>
           </button>
-        ) : (
+        ) : callStatus === "ACTIVE" ? (
           <button className="btn-disconnect" onClick={() => handleDisconnect()}>
             End
           </button>
-        )}
+        ) : null}
       </div>
     </>
   );

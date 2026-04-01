@@ -8,18 +8,6 @@ import DisplayTechIcons from "./DisplayTechIcons";
 import { cn, getRandomInterviewCover } from "@/lib/utils";
 import RetakeInterviewButton from "@/app/components/RetakeInterviewButton";
 
-interface InterviewCardProps {
-  interviewId: string;
-  userId: string;
-  role: string;
-  type: string;
-  techstack: string[];
-  createdAt: string;
-  feedback?: any;
-  candidateName?: string;
-  candidatePhotoUrl?: string;
-}
-
 const InterviewCard = ({
   interviewId,
   userId,
@@ -50,28 +38,30 @@ const InterviewCard = ({
         <div className="flex flex-row gap-4 items-center mb-2">
           {/* Interviewer (AI) */}
           <div className="flex flex-col items-center">
-            <Image
-              src="/ai-avatar.png"
-              alt="AI Interviewer"
-              width={40}
-              height={40}
-              className="rounded-full object-cover size-[40px]"
-              style={{ width: "auto", height: "auto" }}
-            />
-            <span className="text-xs mt-1">AI Interviewer</span>
+            <div className="relative w-10 h-10">
+              <Image
+                src="/ai-avatar.png"
+                alt="AI Interviewer"
+                fill
+                className="rounded-full object-cover"
+                sizes="40px"
+              />
+            </div>
+            <span className="text-xs mt-1 text-center">AI Interviewer</span>
           </div>
           {/* Candidate */}
           {candidatePhotoUrl && (
             <div className="flex flex-col items-center ml-4">
-              <Image
-                src={candidatePhotoUrl}
-                alt={candidateName || "Candidate"}
-                width={40}
-                height={40}
-                className="rounded-full object-cover size-[40px]"
-                style={{ width: "auto", height: "auto" }}
-              />
-              <span className="text-xs mt-1">{candidateName}</span>
+              <div className="relative w-10 h-10">
+                <Image
+                  src={candidatePhotoUrl}
+                  alt={candidateName || "Candidate"}
+                  fill
+                  className="rounded-full object-cover"
+                  sizes="40px"
+                />
+              </div>
+              <span className="text-xs mt-1 text-center">{candidateName}</span>
             </div>
           )}
         </div>

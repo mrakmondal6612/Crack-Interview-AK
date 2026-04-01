@@ -228,3 +228,22 @@ export const dummyInterviews: Interview[] = [
     createdAt: "2024-03-14T15:30:00Z",
   },
 ];
+
+// Demo questions for bypassing AI API during testing
+export const demoQuestions = [
+  "Tell me about yourself and your background in software development.",
+  "What is your strongest programming language and why?",
+  "Describe a challenging project you worked on and how you solved it.",
+  "How do you stay updated with the latest technology trends?",
+  "What is the difference between REST API and GraphQL?",
+  "Explain the concept of closure in JavaScript.",
+  "How do you handle state management in a React application?",
+  "What are your thoughts on test-driven development?",
+  "Describe your experience with databases and ORMs.",
+  "How do you approach debugging a complex issue?",
+  "What is your experience with version control systems like Git?",
+  "Explain the SOLID principles in object-oriented programming.",
+  "How do you ensure code quality and maintainability?",
+  "What is your experience with CI/CD pipelines?",
+  "Describe a time you had to learn a new technology quickly.",
+];

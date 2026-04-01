@@ -12,7 +12,13 @@ function initFirebaseAdmin() {
     process.env.FIREBASE_CLIENT_EMAIL &&
     process.env.FIREBASE_PRIVATE_KEY;
 
-  if (!apps.length && hasCredentials) {
+  if (!hasCredentials) {
+    throw new Error(
+      "Firebase Admin SDK credentials are missing. Please set FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY environment variables."
+    );
+  }
+
+  if (!apps.length) {
     try {
       initializeApp({
         credential: cert({
@@ -23,25 +29,17 @@ function initFirebaseAdmin() {
         }),
       });
     } catch (error) {
-      console.warn("⚠️  Firebase Admin SDK initialization failed:", error);
+      console.error("Firebase Admin SDK initialization failed:", error);
+      throw new Error(
+        `Firebase Admin SDK initialization failed: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
     }
   }
 
-  try {
-    return {
-      auth: getAuth(),
-      db: getFirestore(),
-    };
-  } catch (error) {
-    console.warn(
-      "⚠️  Firebase Admin SDK not initialized. Using fallback mode."
-    );
-    // Return null objects to prevent crashes
-    return {
-      auth: null,
-      db: null,
-    };
-  }
+  return {
+    auth: getAuth(),
+    db: getFirestore(),
+  };
 }
 
 export const { auth, db } = initFirebaseAdmin();

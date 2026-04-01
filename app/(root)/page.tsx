@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import InterviewCard from "@/components/InterviewCard";
 import { auth } from "@/firebase/client";
 import { onAuthStateChanged, User } from "firebase/auth";
+import { getDisplayName } from "@/lib/utils/user";
 
 type Interview = {
   id: string;
@@ -13,21 +14,28 @@ type Interview = {
   type: string;
   techstack: string[];
   createdAt: string;
+  userId: string;
 };
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const [userInterviews, setUserInterviews] = useState<Interview[]>([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
+      setLoading(false);
       if (firebaseUser) {
         // Fetch interviews for this user from your API
         const res = await fetch(`/api/interviews?userId=${firebaseUser.uid}`);
         if (res.ok) {
           const data = await res.json();
-          setUserInterviews(data.interviews || []);
+          // Remove duplicates by interview id
+          const uniqueInterviews = (data.interviews || []).filter((interview: Interview, index: number, self: Interview[]) =>
+            index === self.findIndex((i) => i.id === interview.id)
+          );
+          setUserInterviews(uniqueInterviews);
         }
       } else {
         setUserInterviews([]);
@@ -45,9 +53,14 @@ export default function Home() {
             Practice real interview questions & get instant feedback
           </p>
 
-          <Button asChild className="btn-primary max-sm:w-full">
-            <Link href="/interview/create">Start an Interview</Link>
-          </Button>
+          <div className="flex gap-4 max-sm:w-full">
+            <Button asChild className="btn-primary flex-1 max-sm:w-full">
+              <Link href="/interview/create">Create Interview</Link>
+            </Button>
+            <Button asChild variant="outline" className="btn-secondary flex-1 max-sm:w-full">
+              <Link href="/interview">Start Interview</Link>
+            </Button>
+          </div>
         </div>
 
         <Image
@@ -60,7 +73,7 @@ export default function Home() {
         />
       </section>
 
-      {user && <div className="mt-8">Welcome, {user.email}!</div>}
+      {!loading && user && <div className="mt-8">Welcome, {getDisplayName(user)}!</div>}
 
       {/* User's Past Interviews */}
       {userInterviews && userInterviews.length > 0 && user && (
@@ -78,7 +91,7 @@ export default function Home() {
                 createdAt={interview.createdAt}
                 candidateName={
                   user.uid === interview.userId
-                    ? user.displayName || user.email || "User"
+                    ? getDisplayName(user)
                     : undefined
                 }
                 candidatePhotoUrl={
