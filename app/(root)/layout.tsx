@@ -9,11 +9,13 @@ import ReviewsSection from "@/components/ReviewsSection";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <RootLayoutClient>
-      {children}
+    <div className="min-h-screen flex flex-col bg-slate-950">
+      <RootLayoutClient>
+        {children}
+      </RootLayoutClient>
       <ReviewsSection />
       <Footer />
-    </RootLayoutClient>
+    </div>
   );
 };
 

@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { X } from "lucide-react";
 
 import {
   createUserWithEmailAndPassword,
@@ -136,79 +137,121 @@ const AuthForm = ({ type }: { type: FormType }) => {
     }
   };
 
+  const handleClose = () => {
+    router.push("/");
+  };
+
   const isSignIn = type === "sign-in";
 
   return (
-    <div className="card-border lg:min-w-[566px]">
-      <div className="flex flex-col gap-6 card py-14 px-10">
-        <div className="flex flex-row gap-2 justify-center">
-          <Image src="/logo.svg" alt="logo" height={32} width={38} />
-          <h2 className="text-primary-100">PrepWise</h2>
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md relative">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,theme(colors.purple.900/0.3)_0%,transparent_70%)]"></div>
         </div>
-
-        <h3>Practice job interviews with AI</h3>
-
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-6 mt-4 form"
+        
+        <div className="relative bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8">
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+            aria-label="Close"
           >
-            {!isSignIn && (
+            <X className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+          </button>
+
+          {/* Logo and Title */}
+          <div className="flex flex-col gap-3 mb-8">
+            <div className="flex items-center justify-center gap-3">
+              <div className="relative">
+                <div className="absolute inset-0 bg-purple-600/20 blur-lg rounded-full"></div>
+                <Image src="/logo.svg" alt="InterviewOrbit" width={40} height={40} className="relative" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">InterviewOrbit</h2>
+            </div>
+            <p className="text-center text-gray-400 text-sm">
+              {isSignIn ? "Welcome back to your interview journey" : "Start your interview preparation today"}
+            </p>
+          </div>
+
+          {/* Form */}
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-5"
+            >
+              {!isSignIn && (
+                <FormField
+                  control={form.control}
+                  name="name"
+                  label="Full Name"
+                  placeholder="Enter your full name"
+                  type="text"
+                />
+              )}
+
               <FormField
                 control={form.control}
-                name="name"
-                label="Name"
-                placeholder="Your Name"
-                type="text"
+                name="email"
+                label="Email Address"
+                placeholder="your@email.com"
+                type="email"
               />
-            )}
 
-            <FormField
-              control={form.control}
-              name="email"
-              label="Email"
-              placeholder="Your email address"
-              type="email"
-            />
+              <FormField
+                control={form.control}
+                name="password"
+                label="Password"
+                placeholder="Enter your password"
+                type="password"
+              />
 
-            <FormField
-              control={form.control}
-              name="password"
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-            />
+              <Button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-[1.02] shadow-lg"
+              >
+                {isSignIn ? "Sign In" : "Create Account"}
+              </Button>
+            </form>
+          </Form>
 
-            <Button className="btn" type="submit">
-              {isSignIn ? "Sign In" : "Create an Account"}
-            </Button>
-          </form>
-        </Form>
+          {/* Divider */}
+          <div className="flex items-center gap-4 my-6">
+            <div className="flex-1 h-px bg-white/10"></div>
+            <span className="text-gray-400 text-sm">OR</span>
+            <div className="flex-1 h-px bg-white/10"></div>
+          </div>
 
-        <Button
-          className="btn-google w-full mb-2"
-          type="button"
-          onClick={handleGoogleSignIn}
-        >
-          <Image
-            src="/google.svg"
-            alt="Google"
-            width={20}
-            height={20}
-            className="inline mr-2"
-          />
-          Sign in with Google
-        </Button>
-
-        <p className="text-center">
-          {isSignIn ? "No account yet?" : "Have an account already?"}
-          <Link
-            href={!isSignIn ? "/sign-in" : "/sign-up"}
-            className="font-bold text-user-primary ml-1"
+          {/* Google Sign-In */}
+          <Button
+            className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white py-3 rounded-xl font-medium transition-all hover:scale-[1.02]"
+            type="button"
+            onClick={handleGoogleSignIn}
           >
-            {!isSignIn ? "Sign In" : "Sign Up"}
-          </Link>
-        </p>
+            <div className="flex items-center justify-center gap-3">
+              <Image
+                src="/google.svg"
+                alt="Google"
+                width={20}
+                height={20}
+                className="w-5 h-5"
+              />
+              Continue with Google
+            </div>
+          </Button>
+
+          {/* Sign Up/In Link */}
+          <p className="text-center text-gray-400 text-sm">
+            {isSignIn ? "Don't have an account yet?" : "Already have an account?"}
+            <Link
+              href={!isSignIn ? "/sign-in" : "/sign-up"}
+              className="text-purple-400 hover:text-purple-300 font-medium ml-1 transition-colors"
+            >
+              {!isSignIn ? "Sign In" : "Sign Up"}
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
