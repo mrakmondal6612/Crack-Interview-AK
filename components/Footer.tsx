@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Send, Github, Linkedin, Twitter, Instagram, Heart, ArrowUp, Globe, Code, Users, Star, Zap, Clock } from "lucide-react";
+import { Mail, Send, Github, Linkedin, Twitter, Instagram, Heart, ArrowUp, Globe, Code, Users, Star, Zap, Clock, ChevronDown } from "lucide-react";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -36,9 +36,9 @@ export default function Footer() {
         {/* Top Section with Gradient Border */}
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-blue-600/20 to-purple-600/20 blur-xl"></div>
-          <div className="relative border-t border-b border-white/10 bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12 lg:mb-16">
+          <div className="relative border-t border-b border-white/10 bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-10 mb-8 sm:mb-12 lg:mb-16">
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               
               {/* Brand Section */}
               <div className="text-center lg:text-left order-2 lg:order-1">
@@ -59,28 +59,28 @@ export default function Footer() {
 
                 {/* Stats - Compact on mobile */}
                 <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
-                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 sm:p-3 lg:p-4 border border-white/10">
+                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 sm:p-3 lg:p-4 border border-white/10">
                     <div className="flex items-center gap-1 sm:gap-2 mb-1">
                       <Users className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
                       <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">50K+</span>
                     </div>
                     <p className="text-gray-400 text-xs sm:text-sm">Users</p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 sm:p-3 lg:p-4 border border-white/10">
+                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 sm:p-3 lg:p-4 border border-white/10">
                     <div className="flex items-center gap-1 sm:gap-2 mb-1">
                       <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
                       <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">98%</span>
                     </div>
                     <p className="text-gray-400 text-xs sm:text-sm">Success</p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 sm:p-3 lg:p-4 border border-white/10">
+                  <div className="hidden sm:block bg-white/5 backdrop-blur-sm rounded-lg p-3 sm:p-3 lg:p-4 border border-white/10">
                     <div className="flex items-center gap-1 sm:gap-2 mb-1">
                       <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
                       <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">1M+</span>
                     </div>
                     <p className="text-gray-400 text-xs sm:text-sm">Interviews</p>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-sm rounded-lg p-2 sm:p-3 lg:p-4 border border-white/10">
+                  <div className="hidden sm:block bg-white/5 backdrop-blur-sm rounded-lg p-3 sm:p-3 lg:p-4 border border-white/10">
                     <div className="flex items-center gap-1 sm:gap-2 mb-1">
                       <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
                       <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">24/7</span>
@@ -90,14 +90,14 @@ export default function Footer() {
                 </div>
 
                 {/* Social Links - Compact on mobile */}
-                <div className="flex gap-2 sm:gap-3">
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3">
                   <a 
                     href="https://linkedin.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-600/20 to-purple-800/20 backdrop-blur-sm border border-purple-500/30 rounded-lg sm:rounded-xl flex items-center justify-center hover:from-purple-600/30 hover:to-purple-800/30 transition-all duration-300 hover:scale-110 group"
                   >
-                    <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-purple-300 group-hover:text-white" />
+                    <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 text-purple-300 group-hover:text-white" />
                   </a>
                   <a 
                     href="https://github.com" 
@@ -105,7 +105,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600/20 to-blue-800/20 backdrop-blur-sm border border-blue-500/30 rounded-lg sm:rounded-xl flex items-center justify-center hover:from-blue-600/30 hover:to-blue-800/30 transition-all duration-300 hover:scale-110 group"
                   >
-                    <Github className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-blue-300 group-hover:text-white" />
+                    <Github className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300 group-hover:text-white" />
                   </a>
                   <a 
                     href="https://twitter.com" 
@@ -113,7 +113,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-sky-600/20 to-sky-800/20 backdrop-blur-sm border border-sky-500/30 rounded-lg sm:rounded-xl flex items-center justify-center hover:from-sky-600/30 hover:to-sky-800/30 transition-all duration-300 hover:scale-110 group"
                   >
-                    <Twitter className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-sky-300 group-hover:text-white" />
+                    <Twitter className="w-3 h-3 sm:w-4 sm:h-4 text-sky-300 group-hover:text-white" />
                   </a>
                   <a 
                     href="https://instagram.com" 
@@ -121,34 +121,36 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-pink-600/20 to-pink-800/20 backdrop-blur-sm border border-pink-500/30 rounded-lg sm:rounded-xl flex items-center justify-center hover:from-pink-600/30 hover:to-pink-800/30 transition-all duration-300 hover:scale-110 group"
                   >
-                    <Instagram className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-pink-300 group-hover:text-white" />
+                    <Instagram className="w-3 h-3 sm:w-4 sm:h-4 text-pink-300 group-hover:text-white" />
                   </a>
                 </div>
               </div>
 
               {/* Newsletter Section */}
-              <div className="text-center lg:text-right order-3">
-                <div className="flex items-center justify-center lg:justify-end gap-2 mb-3 sm:mb-4">
-                  <div className="w-6 h-6 sm:w-8 h-8 bg-green-600/20 rounded-lg flex items-center justify-center">
+              <div className="text-center lg:text-center order-3">
+                <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-green-600/20 rounded-lg flex items-center justify-center">
                     <Mail className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
                   </div>
                   <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-white">Stay Updated</h4>
                 </div>
                 
-                <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 hidden sm:block">Get interview tips & updates</p>
+                <p className="text-gray-400 text-xs sm:text-sm mb-4 hidden sm:block">Get interview tips & updates</p>
                 
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-xs mx-auto lg:ml-auto lg:mr-0">
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="flex-1 px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 transition-colors text-sm"
-                    required
-                  />
-                  <button 
-                    type="submit" 
-                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-3 py-2 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm"
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+                  <div className="flex-1 bg-white/10 border border-white/20 rounded-lg overflow-hidden flex items-center">
+                    <input
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full px-3 sm:px-4 py-2 bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm"
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 text-sm whitespace-nowrap"
                   >
                     {isSubscribed ? <Star className="w-3 h-3 sm:w-4 sm:h-4" /> : <Send className="w-3 h-3 sm:w-4 sm:h-4" />}
                     {isSubscribed ? "Subscribed!" : "Subscribe"}
@@ -160,59 +162,127 @@ export default function Footer() {
         </div>
 
         {/* Links Grid - More compact on mobile */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
-          
-          {/* Product */}
-          <div>
-            <h5 className="text-white font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
-              <Code className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
-              Product
-            </h5>
-            <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
-              <li><Link href="/interview/create" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Create Interview</Link></li>
-              <li><Link href="/interview" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Browse Library</Link></li>
-              <li><Link href="/analytics" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Analytics</Link></li>
-              <li><Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Pricing</Link></li>
-            </ul>
+        <div className="mb-8 sm:mb-12 lg:mb-16">
+          <div className="sm:hidden space-y-3">
+            <details className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+              <summary className="list-none cursor-pointer flex items-center justify-between px-4 py-3">
+                <span className="flex items-center gap-2 text-white font-semibold text-sm">
+                  <Code className="w-4 h-4 text-purple-400" />
+                  Product
+                </span>
+                <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="px-4 pb-3">
+                <ul className="space-y-2">
+                  <li><Link href="/interview/create" className="text-gray-300 hover:text-white transition-colors text-sm">Create Interview</Link></li>
+                  <li><Link href="/interview" className="text-gray-300 hover:text-white transition-colors text-sm">Browse Library</Link></li>
+                  <li><Link href="/analytics" className="text-gray-300 hover:text-white transition-colors text-sm">Analytics</Link></li>
+                  <li><Link href="/pricing" className="text-gray-300 hover:text-white transition-colors text-sm">Pricing</Link></li>
+                </ul>
+              </div>
+            </details>
+
+            <details className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+              <summary className="list-none cursor-pointer flex items-center justify-between px-4 py-3">
+                <span className="flex items-center gap-2 text-white font-semibold text-sm">
+                  <Globe className="w-4 h-4 text-blue-400" />
+                  Resources
+                </span>
+                <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="px-4 pb-3">
+                <ul className="space-y-2">
+                  <li><Link href="/blog" className="text-gray-300 hover:text-white transition-colors text-sm">Blog</Link></li>
+                  <li><Link href="/guides" className="text-gray-300 hover:text-white transition-colors text-sm">Guides</Link></li>
+                  <li><Link href="/faq" className="text-gray-300 hover:text-white transition-colors text-sm">FAQ</Link></li>
+                  <li><Link href="/help" className="text-gray-300 hover:text-white transition-colors text-sm">Help Center</Link></li>
+                </ul>
+              </div>
+            </details>
+
+            <details className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+              <summary className="list-none cursor-pointer flex items-center justify-between px-4 py-3">
+                <span className="flex items-center gap-2 text-white font-semibold text-sm">
+                  <Users className="w-4 h-4 text-green-400" />
+                  Company
+                </span>
+                <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="px-4 pb-3">
+                <ul className="space-y-2">
+                  <li><Link href="/about" className="text-gray-300 hover:text-white transition-colors text-sm">About</Link></li>
+                  <li><Link href="/careers" className="text-gray-300 hover:text-white transition-colors text-sm">Careers</Link></li>
+                  <li><Link href="/contact" className="text-gray-300 hover:text-white transition-colors text-sm">Contact</Link></li>
+                  <li><Link href="/partners" className="text-gray-300 hover:text-white transition-colors text-sm">Partners</Link></li>
+                </ul>
+              </div>
+            </details>
+
+            <details className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+              <summary className="list-none cursor-pointer flex items-center justify-between px-4 py-3">
+                <span className="text-white font-semibold text-sm">Legal</span>
+                <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="px-4 pb-3">
+                <ul className="space-y-2">
+                  <li><Link href="/privacy" className="text-gray-300 hover:text-white transition-colors text-sm">Privacy Policy</Link></li>
+                  <li><Link href="/terms" className="text-gray-300 hover:text-white transition-colors text-sm">Terms of Service</Link></li>
+                  <li><Link href="/cookies" className="text-gray-300 hover:text-white transition-colors text-sm">Cookie Policy</Link></li>
+                  <li><Link href="/compliance" className="text-gray-300 hover:text-white transition-colors text-sm">Compliance</Link></li>
+                </ul>
+              </div>
+            </details>
           </div>
 
-          {/* Resources */}
-          <div>
-            <h5 className="text-white font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
-              <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
-              Resources
-            </h5>
-            <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
-              <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Blog</Link></li>
-              <li><Link href="/guides" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Guides</Link></li>
-              <li><Link href="/faq" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">FAQ</Link></li>
-              <li><Link href="/help" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Help Center</Link></li>
-            </ul>
-          </div>
+          <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-6 lg:gap-8">
+            <div>
+              <h5 className="text-white font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                <Code className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
+                Product
+              </h5>
+              <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
+                <li><Link href="/interview/create" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Create Interview</Link></li>
+                <li><Link href="/interview" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Browse Library</Link></li>
+                <li><Link href="/analytics" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Analytics</Link></li>
+                <li><Link href="/pricing" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Pricing</Link></li>
+              </ul>
+            </div>
 
-          {/* Company */}
-          <div>
-            <h5 className="text-white font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
-              <Users className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
-              Company
-            </h5>
-            <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
-              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">About</Link></li>
-              <li><Link href="/careers" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Careers</Link></li>
-              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Contact</Link></li>
-              <li><Link href="/partners" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Partners</Link></li>
-            </ul>
-          </div>
+            <div>
+              <h5 className="text-white font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
+                Resources
+              </h5>
+              <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
+                <li><Link href="/blog" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Blog</Link></li>
+                <li><Link href="/guides" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Guides</Link></li>
+                <li><Link href="/faq" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">FAQ</Link></li>
+                <li><Link href="/help" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Help Center</Link></li>
+              </ul>
+            </div>
 
-          {/* Legal */}
-          <div>
-            <h5 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Legal</h5>
-            <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
-              <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Terms of Service</Link></li>
-              <li><Link href="/cookies" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Cookie Policy</Link></li>
-              <li><Link href="/compliance" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Compliance</Link></li>
-            </ul>
+            <div>
+              <h5 className="text-white font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
+                Company
+              </h5>
+              <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
+                <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">About</Link></li>
+                <li><Link href="/careers" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Careers</Link></li>
+                <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Contact</Link></li>
+                <li><Link href="/partners" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Partners</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Legal</h5>
+              <ul className="space-y-1 sm:space-y-2 sm:space-y-3">
+                <li><Link href="/privacy" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Terms of Service</Link></li>
+                <li><Link href="/cookies" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Cookie Policy</Link></li>
+                <li><Link href="/compliance" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Compliance</Link></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -276,7 +346,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors group"
                 >
-                  <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white" />
+                  <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 group-hover:text-white" />
                 </a>
                 <a 
                   href="https://github.com" 
@@ -284,7 +354,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors group"
                 >
-                  <Github className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white" />
+                  <Github className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 group-hover:text-white" />
                 </a>
                 <a 
                   href="https://twitter.com" 
@@ -292,7 +362,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors group"
                 >
-                  <Twitter className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white" />
+                  <Twitter className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 group-hover:text-white" />
                 </a>
                 <a 
                   href="https://instagram.com" 
@@ -300,7 +370,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors group"
                 >
-                  <Instagram className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white" />
+                  <Instagram className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 group-hover:text-white" />
                 </a>
               </div>
 
@@ -310,7 +380,7 @@ export default function Footer() {
                 className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors"
                 aria-label="Back to top"
               >
-                <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4 sm:w-5 sm:h-5 text-gray-400" />
+                <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" />
               </button>
             </div>
 

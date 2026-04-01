@@ -80,7 +80,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 via-blue-600/30 to-purple-600/30 blur-2xl"></div>
-            <div className="relative border-t border-b border-white/10 bg-white/5 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-16">
+            <div className="relative border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-16 shadow-2xl shadow-purple-900/20">
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                 
@@ -92,7 +92,7 @@ export default function Home() {
                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse hidden sm:block"></div>
                   </div>
                   
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 leading-tight">
+                  <h1 className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 leading-tight tracking-tight">
                     Master Your{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">
                       Interview
@@ -108,14 +108,14 @@ export default function Home() {
                     <Button asChild className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all hover:scale-105 shadow-lg shadow-purple-600/25 text-sm sm:text-base">
                       <Link href="/interview/create" className="flex items-center gap-2 sm:gap-3">
                         <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
-                        Start Practice
+                        Create Interview
                         <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </Link>
                     </Button>
                     <Button asChild variant="outline" className="border-white/20 text-white hover:bg-white/10 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-xl font-semibold transition-all backdrop-blur-sm text-sm sm:text-base">
                       <Link href="/interview" className="flex items-center gap-2 sm:gap-3">
                         <Play className="w-4 h-4 sm:w-5 sm:h-5" />
-                        Watch Demo
+                        Give Interview
                       </Link>
                     </Button>
                   </div>
