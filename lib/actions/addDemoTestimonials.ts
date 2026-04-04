@@ -4,13 +4,13 @@ async function addDemoTestimonials() {
       name: "Sarah Johnson",
       rating: 5,
       feedback:
-        "Prepwise completely transformed how I approach interviews. The AI feedback was incredibly detailed and helped me identify my weaknesses. I got offers from 3 top tech companies!",
+        "InterviewOrbit completely transformed how I approach interviews. The AI feedback was incredibly detailed and helped me identify my weaknesses. I got offers from 3 top tech companies!",
     },
     {
       name: "Amit Patel",
       rating: 5,
       feedback:
-        "The mock interviews felt so real. Practicing with Prepwise's AI interviewer made me confident and calm during actual interviews. Highly recommend to anyone preparing for tech roles.",
+        "The mock interviews felt so real. Practicing with InterviewOrbit's AI interviewer made me confident and calm during actual interviews. Highly recommend to anyone preparing for tech roles.",
     },
     {
       name: "Emma Chen",
@@ -22,7 +22,7 @@ async function addDemoTestimonials() {
       name: "Michael Rodriguez",
       rating: 5,
       feedback:
-        "From struggling with behavioral questions to nailing them - Prepwise made all the difference. The detailed feedback after each practice session was gold. Worth every penny!",
+        "From struggling with behavioral questions to nailing them - InterviewOrbit made all the difference. The detailed feedback after each practice session was gold. Worth every penny!",
     },
     {
       name: "Lisa Wang",
@@ -40,7 +40,7 @@ async function addDemoTestimonials() {
       name: "Priya Verma",
       rating: 5,
       feedback:
-        "As a career changer, I was nervous about technical interviews. Prepwise gave me the practice and confidence I needed. Passed all interviews at my target companies!",
+        "As a career changer, I was nervous about technical interviews. InterviewOrbit gave me the practice and confidence I needed. Passed all interviews at my target companies!",
     },
     {
       name: "David Kim",
@@ -58,7 +58,7 @@ async function addDemoTestimonials() {
       name: "Jessica Anderson",
       rating: 5,
       feedback:
-        "Prepwise's AI interviewer is incredibly smart and adaptive. You feel like you're in a real interview room. The tips after each session helped me overcome my anxiety about tech interviews.",
+        "InterviewOrbit's AI interviewer is incredibly smart and adaptive. You feel like you're in a real interview room. The tips after each session helped me overcome my anxiety about tech interviews.",
     },
     {
       name: "Naveen Singh",
@@ -70,7 +70,7 @@ async function addDemoTestimonials() {
       name: "Sophie Martin",
       rating: 5,
       feedback:
-        "I was barely passing phone screens before Prepwise. Now I'm crushing them! The platform helped me understand what interviewers actually look for. Highly recommended!",
+        "I was barely passing phone screens before InterviewOrbit. Now I'm crushing them! The platform helped me understand what interviewers actually look for. Highly recommended!",
     },
   ];
 

@@ -52,71 +52,110 @@ export default function CreateInterviewPage() {
   }
 
   return (
-    <div className="max-w-lg mx-auto mt-10 bg-dark-900 p-8 rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-6 text-primary-100">Create New Interview</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <label className="text-primary-200">Role</label>
-        <input
-          type="text"
-          className="px-3 py-2 rounded bg-dark-800 text-primary-100 border border-dark-700"
-          value={role}
-          onChange={e => setRole(e.target.value)}
-          required
-        />
-        <label className="text-primary-200">Type</label>
-        <select
-          className="px-3 py-2 rounded bg-dark-800 text-primary-100 border border-dark-700"
-          value={type}
-          onChange={e => setType(e.target.value)}
-        >
-          <option value="technical">Technical</option>
-          <option value="behavioral">Behavioral</option>
-          <option value="mixed">Mixed</option>
-        </select>
-        <label className="text-primary-200">Level</label>
-        <select
-          className="px-3 py-2 rounded bg-dark-800 text-primary-100 border border-dark-700"
-          value={level}
-          onChange={e => setLevel(e.target.value)}
-        >
-          <option value="junior">Junior</option>
-          <option value="mid">Mid</option>
-          <option value="senior">Senior</option>
-        </select>
-        <label className="text-primary-200">Tech Stack (comma separated)</label>
-        <input
-          type="text"
-          className="px-3 py-2 rounded bg-dark-800 text-primary-100 border border-dark-700"
-          value={techstack}
-          onChange={e => setTechstack(e.target.value)}
-          required
-        />
-        <label className="text-primary-200">Number of Questions</label>
-        <input
-          type="number"
-          min={1}
-          max={20}
-          className="px-3 py-2 rounded bg-dark-800 text-primary-100 border border-dark-700"
-          value={amount}
-          onChange={e => setAmount(Number(e.target.value))}
-          required
-        />
-        <Button type="submit" className="w-full mt-4" disabled={loading || demoLoading}>
-          {loading ? "Creating..." : "Create Interview"}
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          disabled={loading || demoLoading}
-          onClick={(e) => handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>, true)}
-        >
-          {demoLoading ? "Creating Demo..." : "⚡ Create Demo Interview (No API)"}
-        </Button>
-        <p className="text-xs text-primary-300 text-center">
-          Demo mode uses pre-generated questions without calling the AI API
-        </p>
-      </form>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900 py-8 px-4">
+      <div className="max-w-lg mx-auto w-full">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8 shadow-2xl">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-white text-center">Create New Interview</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-6">
+            <div>
+              <label className="block text-purple-200 text-sm font-medium mb-2">
+                Role
+              </label>
+              <input
+                type="text"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-white/10 text-white border border-white/20 placeholder-purple-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-colors text-sm sm:text-base"
+                value={role}
+                onChange={e => setRole(e.target.value)}
+                placeholder="e.g. Frontend Developer"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block text-purple-200 text-sm font-medium mb-2">
+                Type
+              </label>
+              <select
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-colors text-sm sm:text-base"
+                value={type}
+                onChange={e => setType(e.target.value)}
+              >
+                <option value="technical" className="bg-dark-800">Technical</option>
+                <option value="behavioral" className="bg-dark-800">Behavioral</option>
+                <option value="mixed" className="bg-dark-800">Mixed</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-purple-200 text-sm font-medium mb-2">
+                Level
+              </label>
+              <select
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-colors text-sm sm:text-base"
+                value={level}
+                onChange={e => setLevel(e.target.value)}
+              >
+                <option value="junior" className="bg-dark-800">Junior</option>
+                <option value="mid" className="bg-dark-800">Mid Level</option>
+                <option value="senior" className="bg-dark-800">Senior</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-purple-200 text-sm font-medium mb-2">
+                Tech Stack (comma separated)
+              </label>
+              <input
+                type="text"
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-white/10 text-white border border-white/20 placeholder-purple-300 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-colors text-sm sm:text-base"
+                value={techstack}
+                onChange={e => setTechstack(e.target.value)}
+                placeholder="React, TypeScript, Node.js"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block text-purple-200 text-sm font-medium mb-2">
+                Number of Questions
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={20}
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-purple-400 focus:bg-white/20 transition-colors text-sm sm:text-base"
+                value={amount}
+                onChange={e => setAmount(Number(e.target.value))}
+                required
+              />
+            </div>
+            
+            <div className="flex flex-col gap-3 sm:gap-4 pt-4">
+              <Button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] shadow-lg text-sm sm:text-base" 
+                disabled={loading || demoLoading}
+              >
+                {loading ? "Creating..." : "Create Interview"}
+              </Button>
+              
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full border-purple-600 text-purple-200 hover:bg-purple-900/20 py-3 sm:py-4 rounded-xl font-semibold transition-all hover:scale-[1.02] text-sm sm:text-base"
+                disabled={loading || demoLoading}
+                onClick={(e) => handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>, true)}
+              >
+                {demoLoading ? "Creating Demo..." : "⚡ Create Demo Interview (No API)"}
+              </Button>
+              
+              <p className="text-xs sm:text-sm text-purple-300 text-center">
+                Demo mode uses pre-generated questions without calling the AI API
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

@@ -13,26 +13,28 @@ function initFirebaseAdmin() {
     process.env.FIREBASE_PRIVATE_KEY;
 
   if (!hasCredentials) {
-    throw new Error(
-      "Firebase Admin SDK credentials are missing. Please set FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY environment variables."
-    );
+    return {
+      auth: null,
+      db: null,
+    };
   }
 
   if (!apps.length) {
     try {
+      const serviceAccount = {
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\n/g, "\n").replace(/"/g, ""),
+      };
+      
       initializeApp({
-        credential: cert({
-          projectId: process.env.FIREBASE_PROJECT_ID,
-          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-          // Replace newlines in the private key
-          privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-        }),
+        credential: cert(serviceAccount),
       });
     } catch (error) {
-      console.error("Firebase Admin SDK initialization failed:", error);
-      throw new Error(
-        `Firebase Admin SDK initialization failed: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
+      return {
+        auth: null,
+        db: null,
+      };
     }
   }
 

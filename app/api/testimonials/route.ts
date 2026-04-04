@@ -1,5 +1,6 @@
 import { db } from "@/firebase/admin";
 import demoTestimonials from "@/public/demo-testimonials.json";
+import { Testimonial } from "@/types";
 
 export async function POST(request: Request) {
   try {
@@ -97,7 +98,6 @@ export async function GET(request: Request) {
   try {
     // If Firebase is not initialized, return demo testimonials immediately
     if (!db) {
-      console.log("Firebase not initialized. Returning demo testimonials.");
       return new Response(JSON.stringify({ testimonials: demoTestimonials }), {
         status: 200,
       });
@@ -119,8 +119,6 @@ export async function GET(request: Request) {
 
     return new Response(JSON.stringify({ testimonials }), { status: 200 });
   } catch (error) {
-    console.error("Error fetching testimonials from Firestore:", error);
-
     // Fallback to demo testimonials
     return new Response(JSON.stringify({ testimonials: demoTestimonials }), {
       status: 200,

@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 
 import { signUp } from "@/lib/actions/auth.action";
 import FormField from "./FormField";
+import { FormType } from "@/types";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -144,33 +145,33 @@ const AuthForm = ({ type }: { type: FormType }) => {
   const isSignIn = type === "sign-in";
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4 py-4 sm:py-8">
       <div className="w-full max-w-md relative">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,theme(colors.purple.900/0.3)_0%,transparent_70%)]"></div>
         </div>
         
-        <div className="relative bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8">
+        <div className="relative bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-4 sm:p-6 lg:p-8">
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+            className="absolute top-3 sm:top-4 right-3 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
             aria-label="Close"
           >
-            <X className="w-4 h-4 text-gray-400 hover:text-white transition-colors" />
+            <X className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 hover:text-white transition-colors" />
           </button>
 
           {/* Logo and Title */}
-          <div className="flex flex-col gap-3 mb-8">
-            <div className="flex items-center justify-center gap-3">
+          <div className="flex flex-col gap-2 sm:gap-3 mb-6 sm:mb-8">
+            <div className="flex items-center justify-center gap-2 sm:gap-3">
               <div className="relative">
                 <div className="absolute inset-0 bg-purple-600/20 blur-lg rounded-full"></div>
-                <Image src="/logo.svg" alt="InterviewOrbit" width={40} height={40} className="relative" />
+                <Image src="/logo.svg" alt="InterviewOrbit" width={32} height={32} className="relative w-8 h-8 sm:w-10 sm:h-10" />
               </div>
-              <h2 className="text-2xl font-bold text-white">InterviewOrbit</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-white">InterviewOrbit</h2>
             </div>
-            <p className="text-center text-gray-400 text-sm">
+            <p className="text-center text-gray-400 text-xs sm:text-sm">
               {isSignIn ? "Welcome back to your interview journey" : "Start your interview preparation today"}
             </p>
           </div>
@@ -179,7 +180,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-5"
+              className="w-full space-y-4 sm:space-y-5"
             >
               {!isSignIn && (
                 <FormField
@@ -209,7 +210,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 rounded-xl font-medium transition-all hover:scale-[1.02] shadow-lg"
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2.5 sm:py-3 rounded-xl font-medium transition-all hover:scale-[1.02] shadow-lg text-sm sm:text-base"
               >
                 {isSignIn ? "Sign In" : "Create Account"}
               </Button>
@@ -217,32 +218,32 @@ const AuthForm = ({ type }: { type: FormType }) => {
           </Form>
 
           {/* Divider */}
-          <div className="flex items-center gap-4 my-6">
+          <div className="flex items-center gap-3 sm:gap-4 my-4 sm:my-6">
             <div className="flex-1 h-px bg-white/10"></div>
-            <span className="text-gray-400 text-sm">OR</span>
+            <span className="text-gray-400 text-xs sm:text-sm">OR</span>
             <div className="flex-1 h-px bg-white/10"></div>
           </div>
 
           {/* Google Sign-In */}
           <Button
-            className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white py-3 rounded-xl font-medium transition-all hover:scale-[1.02]"
+            className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white py-2.5 sm:py-3 rounded-xl font-medium transition-all hover:scale-[1.02] text-sm sm:text-base"
             type="button"
             onClick={handleGoogleSignIn}
           >
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-2 sm:gap-3">
               <Image
                 src="/google.svg"
                 alt="Google"
-                width={20}
-                height={20}
-                className="w-5 h-5"
+                width={16}
+                height={16}
+                className="w-4 h-4 sm:w-5 sm:h-5"
               />
-              Continue with Google
+              <span className="text-sm sm:text-base">Continue with Google</span>
             </div>
           </Button>
 
           {/* Sign Up/In Link */}
-          <p className="text-center text-gray-400 text-sm">
+          <p className="text-center text-gray-400 text-xs sm:text-sm mt-4 sm:mt-6">
             {isSignIn ? "Don't have an account yet?" : "Already have an account?"}
             <Link
               href={!isSignIn ? "/sign-in" : "/sign-up"}

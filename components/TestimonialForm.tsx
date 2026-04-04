@@ -82,7 +82,7 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
       </h2>
       <p className="text-primary-300 mb-6">
         Help other candidates by sharing your interview preparation experience
-        with Prepwise.
+        with InterviewOrbit.
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -132,7 +132,7 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Share your experience with Prepwise (10-500 characters)... How has it helped you? What features do you love?"
+            placeholder="Share your experience with InterviewOrbit (10-500 characters)... How has it helped you? What features do you love?"
             className="px-4 py-2 rounded-lg bg-dark-800 border border-dark-600 text-primary-100 placeholder-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none h-24"
             disabled={loading}
             maxLength={500}

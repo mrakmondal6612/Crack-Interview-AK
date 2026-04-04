@@ -6,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import TestimonialForm from "@/components/TestimonialForm";
 import { auth } from "@/firebase/client";
-import { User } from "@/types";
+import { User, Testimonial } from "@/types";
 
 const cardVariants = {
   offscreen: { opacity: 0, y: 60 },
@@ -14,7 +14,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       bounce: 0.3,
       duration: 0.8,
     },
@@ -75,7 +75,7 @@ export default function ReviewsPage() {
           </h1>
           <p className="text-lg text-primary-300 max-w-2xl mx-auto">
             Join thousands of candidates who have successfully aced their
-            interviews with Prepwise AI. Share your success story and help
+            interviews with InterviewOrbit AI. Share your success story and help
             others on their interview journey.
           </p>
         </div>

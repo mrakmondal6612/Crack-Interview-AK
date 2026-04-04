@@ -1,6 +1,7 @@
 "use server";
 
 import { auth, db } from "@/firebase/admin";
+import { SignUpParams, SignInParams, User } from "@/types";
 import { cookies } from "next/headers";
 
 // Session duration (1 week)
@@ -9,6 +10,10 @@ const SESSION_DURATION = 60 * 60 * 24 * 7;
 // Set session cookie
 export async function setSessionCookie(idToken: string) {
   const cookieStore = await cookies();
+
+  if (!auth) {
+    throw new Error("Firebase Auth not initialized");
+  }
 
   // Create session cookie
   const sessionCookie = await auth.createSessionCookie(idToken, {
@@ -27,6 +32,10 @@ export async function setSessionCookie(idToken: string) {
 
 export async function signUp(params: SignUpParams & { profileURL?: string }) {
   const { uid, name, email, profileURL } = params;
+
+  if (!db) {
+    throw new Error("Firestore not initialized");
+  }
 
   try {
     // check if user exists in db
@@ -70,6 +79,10 @@ export async function signIn(params: SignInParams) {
   const { email, idToken } = params;
 
   try {
+    if (!auth) {
+      throw new Error("Firebase Auth not initialized");
+    }
+
     const userRecord = await auth.getUserByEmail(email);
     if (!userRecord)
       return {
@@ -86,10 +99,23 @@ export async function signIn(params: SignInParams) {
   }
 }
 
-// Sign out user by clearing the session cookie
+// Sign out user by clearing the session cookie and revoking the session
 export async function signOut() {
   const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("session")?.value;
 
+  // Revoke the session if it exists
+  if (sessionCookie && auth) {
+    try {
+      const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
+      await auth.revokeRefreshTokens(decodedClaims.uid);
+    } catch (error) {
+      // Session might be invalid, continue with cookie deletion
+      console.log("Session already invalid or expired:", error);
+    }
+  }
+
+  // Delete the session cookie
   cookieStore.delete("session");
 }
 
@@ -98,6 +124,11 @@ export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get("session")?.value;
   if (!sessionCookie) return null;
+  
+  if (!auth || !db) {
+    return null;
+  }
+  
   try {
     const decodedClaims = await auth.verifySessionCookie(sessionCookie, true);
     // get user info from db
@@ -107,12 +138,13 @@ export async function getCurrentUser(): Promise<User | null> {
       .get();
     if (!userRecord.exists) return null;
 
+    const userData = userRecord.data();
     return {
-      ...userRecord.data(),
+      ...userData,
       id: userRecord.id, // Firestore doc id
       uid: decodedClaims.uid, // Always include uid from claims
       email: decodedClaims.email, // Always include email
-      name: userRecord.data().name || "", // fallback if missing
+      name: userData?.name || "", // fallback if missing
     } as User;
   } catch (error) {
     // Invalid or expired session

@@ -1,4 +1,4 @@
-interface Feedback {
+export interface Feedback {
   id: string;
   interviewId: string;
   totalScore: number;
@@ -13,7 +13,7 @@ interface Feedback {
   createdAt: string;
 }
 
-interface Interview {
+export interface Interview {
   id: string;
   role: string;
   level: string;
@@ -26,21 +26,21 @@ interface Interview {
   coverImage?: string;
 }
 
-interface CreateFeedbackParams {
+export interface CreateFeedbackParams {
   interviewId: string;
   userId: string;
   transcript: { role: string; content: string }[];
   feedbackId?: string;
 }
 
-interface User {
+export interface User {
   name: string;
   email: string;
   id: string;
   profileURL?: string;
 }
 
-interface InterviewCardProps {
+export interface InterviewCardProps {
   interviewId: string;
   userId: string;
   role: string;
@@ -52,7 +52,7 @@ interface InterviewCardProps {
   candidatePhotoUrl?: string;
 }
 
-interface AgentProps {
+export interface AgentProps {
   userName: string;
   userId: string;
   interviewId: string;
@@ -62,36 +62,36 @@ interface AgentProps {
   userPhotoUrl?: string;
 }
 
-interface RouteParams {
+export interface RouteParams {
   params: Promise<Record<string, string>>;
   searchParams: Promise<Record<string, string>>;
 }
 
-interface GetFeedbackByInterviewIdParams {
+export interface GetFeedbackByInterviewIdParams {
   interviewId: string;
   userId: string;
 }
 
-interface GetLatestInterviewsParams {
+export interface GetLatestInterviewsParams {
   userId: string;
   limit?: number;
 }
 
-interface SignInParams {
+export interface SignInParams {
   email: string;
   idToken: string;
 }
 
-interface SignUpParams {
+export interface SignUpParams {
   uid: string;
   name: string;
   email: string;
   password: string;
 }
 
-type FormType = "sign-in" | "sign-up";
+export type FormType = "sign-in" | "sign-up";
 
-interface InterviewFormProps {
+export interface InterviewFormProps {
   interviewId: string;
   role: string;
   level: string;
@@ -100,11 +100,11 @@ interface InterviewFormProps {
   amount: number;
 }
 
-interface TechIconProps {
+export interface TechIconProps {
   techStack: string[];
 }
 
-interface Testimonial {
+export interface Testimonial {
   id: string;
   userId: string;
   userName: string;
@@ -114,7 +114,7 @@ interface Testimonial {
   createdAt: string;
 }
 
-interface CreateTestimonialParams {
+export interface CreateTestimonialParams {
   userId: string;
   userName: string;
   rating: number;
