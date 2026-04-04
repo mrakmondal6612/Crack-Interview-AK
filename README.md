@@ -15,7 +15,7 @@
   <h3 align="center">InterviewOrbit: A job interview preparation platform powered by Vapi AI Voice agents</h3>
 
    <div align="center">
-     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a> YouTube. Join the JSM family!
+     Build your interview skills with AI-powered mock interviews and personalized feedback.
     </div>
 </div>
 
@@ -27,33 +27,27 @@
 4. 🤸 [Quick Start](#quick-start)
 5. 🕸️ [Snippets (Code to Copy)](#snippets)
 6. 🔗 [Assets](#links)
-7. 🚀 [More](#more)
-
-## 🚨 Tutorial
-
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>.
-
-If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects like these step-by-step in a beginner-friendly manner!
-
-<a href="https://www.youtube.com/watch?v=8GK8R77Bd7g" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
+7. 🚀 [Contributing](#more)
+8. 📄 [License](#license)
+9. 📞 [Contact](#contact)
 
 ## <a name="introduction">🤖 Introduction</a>
 
-Built with Next.js for the user interface and backend logic, Firebase for authentication and data storage, styled with TailwindCSS and using Vapi's voice agents, InterviewOrbit is a website project designed to help you learn integrating AI models with your apps. The platform offers a sleek and modern experience for job interview preparation.
-
-If you're getting started and need assistance or face any bugs, join our active Discord community with over **50k+** members. It's a place where people help each other out.
-
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
+Built with Next.js for the user interface and backend logic, Firebase for authentication and data storage, styled with TailwindCSS and using Vapi's voice agents, InterviewOrbit is a comprehensive platform designed to help you ace your job interviews through AI-powered mock interviews. The platform offers a sleek and modern experience for job interview preparation with real-time feedback and detailed performance analysis.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
-- Next.js
-- Firebase
-- Tailwind CSS
-- Vapi AI
-- shadcn/ui
-- Google Gemeni
-- Zod
+- **Next.js 15** - React framework with Turbopack
+- **Firebase** - Authentication and database
+- **Tailwind CSS 4** - Styling framework
+- **Vapi AI** - Voice AI agents for interviews
+- **shadcn/ui** - UI component library
+- **Google Gemini** - AI model for question generation
+- **Zod** - TypeScript schema validation
+- **Framer Motion** - Animation library
+- **React Hook Form** - Form handling
+- **Lucide React** - Icon library
+- **AWS S3** - File storage
 
 ## <a name="features">🔋 Features</a>
 
@@ -88,8 +82,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/adrianhajdin/ai_mock_interviews.git
-cd ai_mock_interviews
+git clone https://github.com/mrakmondal6612/Crack-Interview-AK.git
+cd Crack-Interview-AK
 ```
 
 **Installation**
@@ -132,7 +126,7 @@ Replace the placeholder values with your actual **[Firebase](https://firebase.go
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the project. The development server runs with Turbopack for faster builds.
 
 ## <a name="snippets">🕸️ Snippets</a>
 
@@ -709,13 +703,14 @@ export const dummyInterviews: Interview[] = [
 
 Public assets used in the project can be found [here](https://drive.google.com/drive/folders/1DuQ9bHH3D3ZAN_CFKfBgsaB8DEhEdnog?usp=sharing)
 
-## <a name="more">🚀 More</a>
+## <a name="more">🚀 Contributing</a>
 
-**Advance your skills with Next.js Pro Course**
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-Enjoyed creating this project? Dive deeper into our PRO courses for a richer learning adventure. They're packed with
-detailed explanations, cool features, and exercises to boost your skills. Give it a go!
+## <a name="license">📄 License</a>
 
-<a href="https://jsmastery.pro/next15" target="_blank">
-   <img src="https://github.com/user-attachments/assets/b8760e69-1f81-4a71-9108-ceeb1de36741" alt="Project Banner">
-</a>
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## <a name="contact">📞 Contact</a>
+
+If you have any questions or feedback, please feel free to reach out through the repository issues.
