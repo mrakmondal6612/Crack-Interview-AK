@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Star, Send } from "lucide-react";
+import { Star, Send, Edit2, Trash2 } from "lucide-react";
 import { auth } from "@/firebase/client";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { getDisplayName } from "@/lib/utils/user";
@@ -33,6 +33,9 @@ export default function ReviewsSection() {
     text: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  const [userTestimonial, setUserTestimonial] = useState<Testimonial | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTestimonials();
@@ -47,6 +50,8 @@ export default function ReviewsSection() {
           ...prev,
           userName: displayName
         }));
+        // Fetch user's testimonial
+        fetchUserTestimonial(firebaseUser.uid);
       }
     });
     
@@ -67,6 +72,20 @@ export default function ReviewsSection() {
     }
   };
 
+  const fetchUserTestimonial = async (userId: string) => {
+    try {
+      const response = await fetch(`/api/testimonials?userId=${userId}`);
+      const data = await response.json();
+      if (data.testimonial) {
+        setUserTestimonial(data.testimonial);
+      } else {
+        setUserTestimonial(null);
+      }
+    } catch (error) {
+      console.error("Error fetching user testimonial:", error);
+    }
+  };
+
   const handleSubmitFeedback = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -83,40 +102,124 @@ export default function ReviewsSection() {
     setSubmitting(true);
     
     try {
-      const response = await fetch("/api/testimonials", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          userId: user?.uid || `guest_${Date.now()}`,
-        }),
-      });
-
-      const result = await response.json();
+      const userId = user?.uid || `guest_${Date.now()}`;
       
-      if (response.ok) {
-        // Reset form but keep user name
-        setFormData(prev => ({
-          ...prev,
-          rating: 5,
-          text: "",
-        }));
-        setShowFeedbackForm(false);
+      if (isEditing && editingId) {
+        // Update existing testimonial
+        const response = await fetch("/api/testimonials", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: editingId,
+            userId,
+            rating: formData.rating,
+            text: formData.text,
+          }),
+        });
+
+        const result = await response.json();
         
-        // Refresh testimonials
-        fetchTestimonials();
-        
-        alert("Thank you for your feedback!");
+        if (response.ok) {
+          alert("Feedback updated successfully!");
+          setIsEditing(false);
+          setEditingId(null);
+          
+          // Refresh user testimonial and all testimonials
+          await fetchUserTestimonial(userId);
+          fetchTestimonials();
+          
+          setShowFeedbackForm(false);
+        } else {
+          alert(result.error || "Failed to update feedback");
+        }
       } else {
-        alert(result.error || "Failed to submit feedback");
+        // Create new testimonial
+        const response = await fetch("/api/testimonials", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            userId,
+          }),
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+          // Reset form but keep user name
+          setFormData(prev => ({
+            ...prev,
+            rating: 5,
+            text: "",
+          }));
+          setShowFeedbackForm(false);
+          
+          // Refresh user testimonial and all testimonials
+          await fetchUserTestimonial(userId);
+          fetchTestimonials();
+          
+          alert("Thank you for your feedback!");
+        } else {
+          if (response.status === 409) {
+            // User already has a testimonial
+            alert(result.error || "You have already submitted a testimonial.");
+            await fetchUserTestimonial(userId);
+          } else {
+            alert(result.error || "Failed to submit feedback");
+          }
+        }
       }
     } catch (error) {
       console.error("Error submitting feedback:", error);
       alert("Failed to submit feedback. Please try again.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleEditTestimonial = (testimonial: Testimonial) => {
+    setFormData({
+      userName: testimonial.userName,
+      rating: testimonial.rating,
+      text: testimonial.text,
+    });
+    setEditingId(testimonial.id);
+    setIsEditing(true);
+    setShowFeedbackForm(true);
+  };
+
+  const handleDeleteTestimonial = async (testimonialId: string) => {
+    if (!confirm("Are you sure you want to delete your testimonial?")) {
+      return;
+    }
+
+    const userId = user?.uid;
+    if (!userId) {
+      alert("You must be logged in to delete your testimonial");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/testimonials?id=${testimonialId}&userId=${userId}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        alert("Testimonial deleted successfully");
+        setUserTestimonial(null);
+        fetchTestimonials();
+      } else {
+        alert(result.error || "Failed to delete testimonial");
+      }
+    } catch (error) {
+      console.error("Error deleting testimonial:", error);
+      alert("Failed to delete testimonial. Please try again.");
     }
   };
 
@@ -230,6 +333,26 @@ export default function ReviewsSection() {
                           <p className="text-gray-200 text-sm leading-relaxed mb-4 line-clamp-3">
                             "{testimonial.text}"
                           </p>
+                          
+                          {/* Edit/Delete buttons for user's own testimonial */}
+                          {user && testimonial.userId === user.uid && (
+                            <div className="flex gap-2 mt-2">
+                              <button
+                                onClick={() => handleEditTestimonial(testimonial)}
+                                className="flex items-center gap-1 px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg text-xs font-medium transition-colors"
+                              >
+                                <Edit2 className="w-3 h-3" />
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteTestimonial(testimonial.id)}
+                                className="flex items-center gap-1 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs font-medium transition-colors"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                                Delete
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -326,6 +449,26 @@ export default function ReviewsSection() {
                               Read full story →
                             </div>
                           )}
+                          
+                          {/* Edit/Delete buttons for user's own testimonial */}
+                          {user && testimonial.userId === user.uid && (
+                            <div className="flex gap-2 mt-3">
+                              <button
+                                onClick={() => handleEditTestimonial(testimonial)}
+                                className="flex items-center gap-1 px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg text-xs font-medium transition-colors"
+                              >
+                                <Edit2 className="w-3 h-3" />
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteTestimonial(testimonial.id)}
+                                className="flex items-center gap-1 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs font-medium transition-colors"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                                Delete
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -338,7 +481,39 @@ export default function ReviewsSection() {
 
         {/* Feedback Form Section */}
         <div className="max-w-2xl mx-auto">
-          {!showFeedbackForm ? (
+          {/* Show user's testimonial if exists */}
+          {userTestimonial && !showFeedbackForm && (
+            <div className="text-center mb-8">
+              <div className="bg-gradient-to-r from-green-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border border-green-500/30 p-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Star className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">You've Already Shared Your Story!</h3>
+                <p className="text-gray-300 mb-6">
+                  Thank you for your feedback. You can edit or delete your testimonial anytime.
+                </p>
+                <div className="flex gap-4 justify-center">
+                  <Button
+                    onClick={() => handleEditTestimonial(userTestimonial)}
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105 shadow-lg shadow-purple-600/25"
+                  >
+                    <Edit2 className="w-4 h-4 mr-2" />
+                    Edit Your Feedback
+                  </Button>
+                  <Button
+                    onClick={() => handleDeleteTestimonial(userTestimonial.id)}
+                    variant="outline"
+                    className="border-red-500/50 text-red-300 hover:bg-red-600/20 px-6 py-3 rounded-xl font-semibold transition-all"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {!showFeedbackForm && !userTestimonial ? (
             <div className="text-center">
               <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 backdrop-blur-sm rounded-2xl border border-purple-500/30 p-8">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -363,7 +538,7 @@ export default function ReviewsSection() {
               className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-6 sm:p-8"
             >
               <h3 className="text-2xl font-bold text-white mb-6 text-center">
-                Share Your Feedback
+                {isEditing ? "Edit Your Feedback" : "Share Your Feedback"}
               </h3>
               
               {user && (
@@ -456,12 +631,12 @@ export default function ReviewsSection() {
                     {submitting ? (
                       <div className="flex items-center gap-2">
                         <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
-                        Submitting...
+                        {isEditing ? "Updating..." : "Submitting..."}
                       </div>
                     ) : (
                       <div className="flex items-center gap-2">
                         <Send className="w-4 h-4" />
-                        Submit Feedback
+                        {isEditing ? "Update Feedback" : "Submit Feedback"}
                       </div>
                     )}
                   </Button>
@@ -547,6 +722,26 @@ export default function ReviewsSection() {
                       <p className="text-gray-200 text-xs leading-relaxed">
                         "{testimonial.text}"
                       </p>
+                      
+                      {/* Edit/Delete buttons for user's own testimonial */}
+                      {user && testimonial.userId === user.uid && (
+                        <div className="flex gap-2 mt-3">
+                          <button
+                            onClick={() => handleEditTestimonial(testimonial)}
+                            className="flex items-center gap-1 px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg text-xs font-medium transition-colors"
+                          >
+                            <Edit2 className="w-3 h-3" />
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteTestimonial(testimonial.id)}
+                            className="flex items-center gap-1 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs font-medium transition-colors"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                            Delete
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 ))}

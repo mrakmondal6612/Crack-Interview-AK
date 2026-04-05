@@ -112,6 +112,7 @@ export interface Testimonial {
   text: string;
   verified: boolean;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface CreateTestimonialParams {

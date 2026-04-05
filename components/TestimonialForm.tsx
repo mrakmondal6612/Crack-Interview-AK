@@ -8,12 +8,14 @@ interface TestimonialFormProps {
   userId?: string;
   userName?: string;
   onSubmitSuccess?: () => void;
+  existingTestimonialId?: string;
 }
 
 const TestimonialForm: React.FC<TestimonialFormProps> = ({
   userId,
   userName,
   onSubmitSuccess,
+  existingTestimonialId,
 }) => {
   const [rating, setRating] = useState(5);
   const [text, setText] = useState("");
@@ -55,7 +57,11 @@ const TestimonialForm: React.FC<TestimonialFormProps> = ({
       const data = await response.json();
 
       if (!response.ok) {
-        toast.error(data.error || "Failed to submit feedback");
+        if (response.status === 409) {
+          toast.error("You have already submitted a testimonial. Please edit your existing testimonial.");
+        } else {
+          toast.error(data.error || "Failed to submit feedback");
+        }
         return;
       }
 
