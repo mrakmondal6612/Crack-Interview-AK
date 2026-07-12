@@ -26,7 +26,9 @@ export async function POST(request: Request) {
     let parsedQuestions: string[];
 
     // Demo mode: bypass AI API and use pre-generated questions
-    if (demoMode || process.env.DEMO_MODE === "true") {
+    // Always use demo mode if DEMO_MODE environment variable is set
+    if (process.env.DEMO_MODE === "true" || demoMode) {
+      console.log("Using demo mode for interview generation");
       // Shuffle demo questions and take requested amount
       const shuffled = [...demoQuestions].sort(() => 0.5 - Math.random());
       parsedQuestions = shuffled.slice(0, Math.min(amount, demoQuestions.length));

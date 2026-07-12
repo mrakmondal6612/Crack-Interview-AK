@@ -86,8 +86,39 @@ export async function createFeedback(params: CreateFeedbackParams) {
     await feedbackRef.set(feedback);
 
     return { success: true, feedbackId: feedbackRef.id };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error saving feedback:", error);
+    
+    // Fall back to demo mode on quota errors
+    if (error?.statusCode === 429 || error?.message?.includes("quota")) {
+      console.log("AI quota exceeded, falling back to demo feedback");
+      try {
+        const feedback = {
+          interviewId: interviewId,
+          userId: userId,
+          totalScore: demoFeedback.totalScore,
+          categoryScores: demoFeedback.categoryScores,
+          strengths: demoFeedback.strengths,
+          areasForImprovement: demoFeedback.areasForImprovement,
+          finalAssessment: demoFeedback.finalAssessment,
+          createdAt: new Date().toISOString(),
+        };
+
+        let feedbackRef;
+        if (feedbackId) {
+          feedbackRef = db.collection("feedback").doc(feedbackId);
+        } else {
+          feedbackRef = db.collection("feedback").doc();
+        }
+
+        await feedbackRef.set(feedback);
+        return { success: true, feedbackId: feedbackRef.id, fallback: true };
+      } catch (fallbackError) {
+        console.error("Error saving demo feedback:", fallbackError);
+        return { success: false };
+      }
+    }
+    
     return { success: false };
   }
 }

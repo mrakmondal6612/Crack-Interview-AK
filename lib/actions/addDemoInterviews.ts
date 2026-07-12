@@ -1,13 +1,13 @@
+
+
 import { db } from "@/firebase/admin";
 
-// Replace with your actual Firebase user id
-const DEMO_USER_ID = "clfPR7lNOgOHk6RFjJFc2mMcQeI3";
+import { getCurrentUser } from '@/lib/actions/auth.action';
 
 export async function addDemoInterviews() {
-  // const user = await getCurrentUser();
-  // if (!user) throw new Error("Not authenticated");
-  // const userId = user.uid || user.id;
-  const userId = DEMO_USER_ID;
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated");
+  const userId = user.id;
   const now = new Date().toISOString();
 
   const demoInterviews = [

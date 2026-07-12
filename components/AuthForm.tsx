@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { z } from "zod";
 import Link from "next/link";
 import Image from "next/image";
@@ -33,6 +34,7 @@ const authFormSchema = (type: FormType) => {
 
 const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,6 +47,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     try {
       if (type === "sign-up") {
         const { name, email, password } = data;
@@ -99,10 +102,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
     } catch (error) {
       console.log(error);
       toast.error(`There was an error: ${error}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
+    setIsLoading(true);
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
@@ -135,6 +141,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
     } catch (error) {
       toast.error("Google sign-in failed");
       console.error("Google sign-in error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -210,9 +218,10 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2.5 sm:py-3 rounded-xl font-medium transition-all hover:scale-[1.02] shadow-lg text-sm sm:text-base"
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-2.5 sm:py-3 rounded-xl font-medium transition-all hover:scale-[1.02] shadow-lg text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                {isSignIn ? "Sign In" : "Create Account"}
+                {isLoading ? "Processing..." : (isSignIn ? "Sign In" : "Create Account")}
               </Button>
             </form>
           </Form>
@@ -226,19 +235,24 @@ const AuthForm = ({ type }: { type: FormType }) => {
 
           {/* Google Sign-In */}
           <Button
-            className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white py-2.5 sm:py-3 rounded-xl font-medium transition-all hover:scale-[1.02] text-sm sm:text-base"
+            className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white py-2.5 sm:py-3 rounded-xl font-medium transition-all hover:scale-[1.02] text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             type="button"
             onClick={handleGoogleSignIn}
+            disabled={isLoading}
           >
             <div className="flex items-center justify-center gap-2 sm:gap-3">
-              <Image
-                src="/google.svg"
-                alt="Google"
-                width={16}
-                height={16}
-                className="w-4 h-4 sm:w-5 sm:h-5"
-              />
-              <span className="text-sm sm:text-base">Continue with Google</span>
+              {isLoading ? (
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <Image
+                  src="/google.svg"
+                  alt="Google"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4 sm:w-5 sm:h-5"
+                />
+              )}
+              <span className="text-sm sm:text-base">{isLoading ? "Processing..." : "Continue with Google"}</span>
             </div>
           </Button>
 
