@@ -10,6 +10,9 @@ export async function POST(request: Request) {
   try {
     const { type, role, level, techstack, amount, demoMode } = await request.json();
     
+    console.log("DEMO_MODE env var:", process.env.DEMO_MODE);
+    console.log("demoMode from request:", demoMode);
+    
     // Validate required fields
     if (!role || !level || !techstack || !type || !amount) {
       return Response.json({ 
