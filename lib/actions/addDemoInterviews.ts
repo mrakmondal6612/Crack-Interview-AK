@@ -37,6 +37,8 @@ export async function addDemoInterviews() {
     },
   ];
 
+  if (!db) throw new Error("Firebase not initialized");
+
   for (const interview of demoInterviews) {
     await db.collection("interviews").add(interview);
   }
